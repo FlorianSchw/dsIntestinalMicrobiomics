@@ -1,0 +1,19 @@
+Package: dsIntestinalMicrobiomics
+Type: Package
+Maintainer: <Florian.Schwarz@dife.de>
+Author: <Florian.Schwarz@dife.de>
+Version: 1.0.0
+License: GPL-3 + file LICENSE
+Title: DataSHIELD server side functions for the dsIntestinalMicrobiomics package
+Description: Server side functions for microbiome analysis with DataSHIELD.
+Depends: 
+  R(>= 4.0.0),
+Imports: 
+  IFAA,
+  SummarizedExperiment
+AggregateMethods:
+  microbiomeMZILNDS
+AssignMethods:
+  summarizedExperimentDS
+RoxygenNote: 7.2.1
+Encoding: UTF-8
