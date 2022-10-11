@@ -1,3 +1,11 @@
+
+######################## Needs to be fully adjusted to the zoib::zoib function!
+
+
+
+
+
+
 #'
 #' @title Computes the multivariate zero-inflated logistic normal model
 #' @description This function calls the native R function from the IFAA package
