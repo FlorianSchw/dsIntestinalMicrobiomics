@@ -29,7 +29,7 @@
 #' @param n.thin Thinning period of the MCMC chains after the burn-in (default = 5).
 #' @param inits optional specification of initial values for regression coefficients and variance/covariance parameters in the form of a list. If omitted, initial values will be generated automatically.
 #' @param seeds a vector of dimension n.chain that contains seeds for the initial values and the random number generators of the MCMC chains, if users wish to make the output from the model reproducible.
-#' @return \code{ds.microbiomeZoib} returns XXXXXXXXXXXXXXXXXXXXXX
+#' @return \code{microbiomeZoibDS} returns multivariate zero-inflated logistic normal model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @import zoib
 #' @export

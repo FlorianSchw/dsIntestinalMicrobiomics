@@ -1,6 +1,3 @@
-############### Documentation needs to be adjusted towards betareg
-
-
 #'
 #' @title Fits beta regression models for rates and proportions via maximum likelihood
 #' @description This function is similar to the native R function betareg from the betareg package
@@ -18,7 +15,7 @@
 #' @param model is a logical. If TRUE, the model frame from the model fit will be returned.
 #' @param x is a logical. If TRUE, the response from the model fit will be returned.
 #' @param y is a logical. If TRUE, the model matrix from the model fit will be returned.
-#' @return \code{ds.microbiomeBetareg} returns XXXXXXXXXXXXXXXXXXXXXX
+#' @return \code{microbiomeBetaregDS} returns a beta regression model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @import betareg
 #' @export
@@ -32,46 +29,26 @@ microbiomeBetaregDS <- function(df, formula, na.action, weights, offset, link, l
 
   # Computes the model
 
-  outome <- IFAA::MZILN(experiment_dat = SumExp,
-                        refTaxa = taxa,
-                        allCov = covariates,
-                        sampleIDname = sampleIDname,
-                        adjust_method = adjust_method,
-                        fdrRate = fdrRate,
-                        paraJobs = paraJobs,
-                        bootB = bootB,
-                        taxDropThresh = taxDropThresh,
-                        standardize = standardize,
-                        sequentialRun = sequentialRun,
-                        verbose = verbose,
-                        seed = seed)
+  outome <- betareg::betareg(formula = formula,
+                             data = df,
+                             na.action = na.action,
+                             weights = weights,
+                             offset = offset,
+                             link = link,
+                             link.phi = link.phi,
+                             type = type,
+                             control = control,
+                             model = model,
+                             x = x,
+                             y = y)
 
 
 
 
 
-  Results.Ref_Tax <- unlist(results_1[[1]][1])
-  Results.Taxon <- unlist(results_1[[1]][2])
-  Results.Covariate <- unlist(results_1[[1]][3])
-  Results.Estimate <- unlist(results_1[[1]][4])
-  Results.SE.est <- unlist(results_1[[1]][5])
-  Results.CI.low <- unlist(results_1[[1]][6])
-  Results.CI.high <- unlist(results_1[[1]][7])
-  Results.adj.p.value <- unlist(results_1[[1]][8])
-  Results.unadjust.p.value <- unlist(results_1[[1]][9])
-  Results.sig_ind <- unlist(results_1[[1]][10])
-
-  Results.FDR <- fdrRate
-  Results.Adjust_Method <- adjust_method
-  Results.Seed <- seed
-  Results.Boots <- bootB
-
-
-
-  output <- data.frame(Results.Ref_Tax, Results.Taxon, Results.Covariate, Results.Estimate, Results.SE.est, Results.CI.low, Results.CI.high, Results.adj.p.value, Results.unadjust.p.value, Results.sig_ind, Results.FDR, Results.Adjust_Method, Results.Seed, Results.Boots)
 
   # the resulting model will be returned to the analyst
-  return(output)
+  return(outcome)
 
 
 

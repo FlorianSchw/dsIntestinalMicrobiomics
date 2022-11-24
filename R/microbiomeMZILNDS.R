@@ -16,7 +16,7 @@
 #' @param sequentialRun is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @param seed Random seed for reproducibility. Can be set to NULL to remove seeding.
-#' @return XXXXX
+#' @return {microbiomeMZILNDS} returns the outcome of the specified multivariate zero-inflated logistic normal model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @import IFAA
 #' @export

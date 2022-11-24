@@ -25,7 +25,7 @@
 #' @param balanceCut The threshold of the proportion of non-zero sequencing reads in each group of a binary variable for choosing the final reference taxa in phase 2. The default is 0.2 meaning at least 20% non-zero sequencing reads in each group are needed to be eligible for being chosen as a final reference taxon.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @param seed Random seed for reproducibility. Can be set to NULL to remove seeding.
-#' @return XXXXX
+#' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @import IFAA
 #' @export
