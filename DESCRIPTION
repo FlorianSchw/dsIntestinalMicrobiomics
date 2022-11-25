@@ -10,9 +10,14 @@ Depends:
   R(>= 4.0.0),
 Imports: 
   IFAA,
-  SummarizedExperiment
+  SummarizedExperiment,
+  Betareg,
+  zoib
 AggregateMethods:
-  microbiomeMZILNDS
+  microbiomeMZILNDS,
+  microbiomeIFAADS,
+  microbiomeZoibDS,
+  microbiomeBetaregDS
 AssignMethods:
   summarizedExperimentDS
 RoxygenNote: 7.2.1
