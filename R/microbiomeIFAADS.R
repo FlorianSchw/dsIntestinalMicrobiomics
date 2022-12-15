@@ -4,6 +4,7 @@
 #' @details The function computes an association from a SummerizedExperiment object with a given set of
 #' confounders and covariates.
 #' @param SumExp is a string character of the data.frame
+#' @param microbVar This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
 #' @param covariates is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
 #' @param confounders is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)
 #' @param sampleIDname is a string character for the sample ID variable.
@@ -32,8 +33,8 @@
 #'
 
 
-microbiomeIFAADS <- function(SumExp, covariates, confounders, sampleIDname, covariatesMany, confoundersMany, nRef, nRefMaxforEsti, taxa, adjust_method,
-                             fdrRate, paraJobs, bootB, standardize, sequentialRun, refReadsThresh, taxDropThresh, SDThresh, SDquantilThresh, balanceCut, verbose, seed){
+microbiomeIFAADS <- function(SumExp, microbVar, covariates, confounders, sampleIDname, covariatesMany, confoundersMany, nRef, nRefMaxforEsti, taxa, adjust_method,
+                             fdrRate, paraJobs, bootB, standardize, sequentialRun, refReadsThresh, taxDropThresh, SDThresh, SDquantilThresh, balanceCut, verbose){
 
   SumExp <- eval(parse(text=SumExp), envir = parent.frame())
 
@@ -41,6 +42,7 @@ microbiomeIFAADS <- function(SumExp, covariates, confounders, sampleIDname, cova
   # Computes the model
 
   outome <- IFAA::IFAA(experiment_dat = SumExp,
+                       microbVar = microbVar,
                        testCov = covariates,
                        ctrlCov = confounders,
                        sampleIDname = sampleIDname,
@@ -60,13 +62,43 @@ microbiomeIFAADS <- function(SumExp, covariates, confounders, sampleIDname, cova
                        SDThresh = SDThresh,
                        SDquantilThresh = SDquantilThresh,
                        balanceCut = balanceCut,
-                       verbose = verbose,
-                       seed = seed)
+                       verbose = verbose)
 
 
   # the resulting model will be returned to the analyst
   return(outcome)
 
+
+  Results.Taxon <- unlist(outcome[[1]][1])
+  Results.Covariate <- unlist(outcome[[1]][2])
+  Results.Estimate <- unlist(outcome[[1]][3])
+  Results.SE.est <- unlist(outcome[[1]][4])
+  Results.CI.low <- unlist(outcome[[1]][5])
+  Results.CI.high <- unlist(outcome[[1]][6])
+  Results.adj.p.value <- unlist(outcome[[1]][7])
+  Results.unadjust.p.value <- unlist(outcome[[1]][8])
+  Results.sig_ind <- unlist(outcome[[1]][9])
+  Results.Final_Ref_Taxon <- unlist(outcome[[2]][2])
+
+
+  Results.FDR <- fdrRate
+  Results.Adjust_Method <- adjust_method
+  Results.Boots <- bootB
+
+
+  output <- data.frame(Results.Taxon,
+                       Results.Covariate,
+                       Results.Estimate,
+                       Results.SE.est,
+                       Results.CI.low,
+                       Results.CI.high,
+                       Results.adj.p.value,
+                       Results.unadjust.p.value,
+                       Results.sig_ind,
+                       Results.FDR,
+                       Results.Adjust_Method,
+                       Results.Boots,
+                       as.list(Results.Final_Ref_Taxon))
 
 
 }
