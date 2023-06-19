@@ -46,8 +46,6 @@ microbiomeMZILNDS <- function(SumExp, taxa, covariates, sampleIDname, adjust_met
 
 
 
-
-
   Results.Ref_Tax <- unlist(results_1[[1]][1])
   Results.Taxon <- unlist(results_1[[1]][2])
   Results.Covariate <- unlist(results_1[[1]][3])

@@ -13,14 +13,15 @@
 #'
 
 
-summarizedExperimentDS <- function(df, microbiomeData, covariateData){
+summarizedExperimentDS <- function(microbiomeData, covariateData){
 
-  df <- eval(parse(text=df), envir = parent.frame())
+  microbiomeData <- eval(parse(text=microbiomeData), envir = parent.frame())
+  covariateData <- eval(parse(text=covariateData), envir = parent.frame())
 
 
   # Computes the summarizedExperiment object
 
-  outome <- SummarizedExperiment::SummarizedExperiment(assays = list(MicrobiomeData = t(microbiomeData)), colData =covariateData)
+  outcome <- SummarizedExperiment::SummarizedExperiment(assays = list(MicrobiomeData = t(microbiomeData)), colData =covariateData)
 
 
   # the SummarizedExperiment object is assigned to the data servers

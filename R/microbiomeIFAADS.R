@@ -33,7 +33,7 @@
 #'
 
 
-microbiomeIFAADS <- function(SumExp, microbVar, covariates, confounders, sampleIDname, covariatesMany, confoundersMany, nRef, nRefMaxforEsti, taxa, adjust_method,
+microbiomeIFAADS <- function(SumExp, microbVar, covariates, confounders, sampleIDname, covariatesMany, confoundersMany, nRef, nRefMaxForEsti, taxa, adjust_method,
                              fdrRate, paraJobs, bootB, standardize, sequentialRun, refReadsThresh, taxDropThresh, SDThresh, SDquantilThresh, balanceCut, verbose){
 
   SumExp <- eval(parse(text=SumExp), envir = parent.frame())
@@ -41,66 +41,36 @@ microbiomeIFAADS <- function(SumExp, microbVar, covariates, confounders, sampleI
 
   # Computes the model
 
-  outome <- IFAA::IFAA(experiment_dat = SumExp,
-                       microbVar = microbVar,
-                       testCov = covariates,
-                       ctrlCov = confounders,
-                       sampleIDname = sampleIDname,
-                       testMany = covariatesMany,
-                       ctrlMany = confoundersMany,
-                       nRef = nRef,
-                       nRefMaxForEsti = nRefMaxForEsti,
-                       refTaxa = taxa,
-                       adjust_method = adjust_method,
-                       fdrRate = fdrRate,
-                       paraJobs = paraJobs,
-                       bootB = bootB,
-                       standardize = standardize,
-                       sequentialRun = sequentialRun,
-                       refReadsThresh = refReadsThresh,
-                       taxDropThresh = taxDropThresh,
-                       SDThresh = SDThresh,
-                       SDquantilThresh = SDquantilThresh,
-                       balanceCut = balanceCut,
-                       verbose = verbose)
+  outcome <- IFAA::IFAA(experiment_dat = SumExp,
+                        microbVar = microbVar,
+                        testCov = covariates,
+                        ctrlCov = confounders,
+                        sampleIDname = sampleIDname,
+                        testMany = covariatesMany,
+                        ctrlMany = confoundersMany,
+                        nRef = nRef,
+                        nRefMaxForEsti = nRefMaxForEsti,
+                        refTaxa = taxa,
+                        adjust_method = adjust_method,
+                        fdrRate = fdrRate,
+                        paraJobs = paraJobs,
+                        bootB = bootB,
+                        standardize = standardize,
+                        sequentialRun = sequentialRun,
+                        refReadsThresh = refReadsThresh,
+                        taxDropThresh = taxDropThresh,
+                        SDThresh = SDThresh,
+                        SDquantilThresh = SDquantilThresh,
+                        balanceCut = balanceCut,
+                        verbose = verbose)
 
 
-  # the resulting model will be returned to the analyst
+  # the resulting model will be returned to the analyst, all changes below need to be checked!!!
+
+
+
+
   return(outcome)
-
-
-  Results.Taxon <- unlist(outcome[[1]][1])
-  Results.Covariate <- unlist(outcome[[1]][2])
-  Results.Estimate <- unlist(outcome[[1]][3])
-  Results.SE.est <- unlist(outcome[[1]][4])
-  Results.CI.low <- unlist(outcome[[1]][5])
-  Results.CI.high <- unlist(outcome[[1]][6])
-  Results.adj.p.value <- unlist(outcome[[1]][7])
-  Results.unadjust.p.value <- unlist(outcome[[1]][8])
-  Results.sig_ind <- unlist(outcome[[1]][9])
-  Results.Final_Ref_Taxon <- unlist(outcome[[2]][2])
-
-
-  Results.FDR <- fdrRate
-  Results.Adjust_Method <- adjust_method
-  Results.Boots <- bootB
-
-
-  output <- data.frame(Results.Taxon,
-                       Results.Covariate,
-                       Results.Estimate,
-                       Results.SE.est,
-                       Results.CI.low,
-                       Results.CI.high,
-                       Results.adj.p.value,
-                       Results.unadjust.p.value,
-                       Results.sig_ind,
-                       Results.FDR,
-                       Results.Adjust_Method,
-                       Results.Boots,
-                       as.list(Results.Final_Ref_Taxon))
-
-
 }
 
 # aggregate function
