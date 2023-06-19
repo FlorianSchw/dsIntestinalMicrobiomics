@@ -23,6 +23,12 @@ microbiomeMZILNPooledDS1(
 \arguments{
 \item{SumExp}{is a string character of the data.frame}
 
+\item{microbVar}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
+
+\item{refTaxa}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)}
+
+\item{allCov}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
+
 \item{sampleIDname}{is a string character for the sample ID variable.}
 
 \item{adjust_method}{The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.}
@@ -40,12 +46,6 @@ microbiomeMZILNPooledDS1(
 \item{sequentialRun}{is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.}
 
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
-
-\item{taxa}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)}
-
-\item{covariates}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
-
-\item{seed}{Random seed for reproducibility. Can be set to NULL to remove seeding.}
 }
 \value{
 {microbiomeMZILNPooledDS1} returns the outcome of the specified multivariate zero-inflated logistic normal model

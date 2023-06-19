@@ -4,8 +4,9 @@
 #' @details The function computes a model from a SummerizedExperiment object with a given set of
 #' microbiome taxa and covariates.
 #' @param SumExp is a string character of the data.frame
-#' @param taxa is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
-#' @param covariates is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
+#' @param microbVar This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' @param refTaxa is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
+#' @param allCov is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
 #' @param sampleIDname is a string character for the sample ID variable.
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
@@ -15,7 +16,6 @@
 #' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
 #' @param sequentialRun is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
-#' @param seed Random seed for reproducibility. Can be set to NULL to remove seeding.
 #' @return {microbiomeMZILNDS} returns the outcome of the specified multivariate zero-inflated logistic normal model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @import IFAA
@@ -23,16 +23,17 @@
 #'
 
 
-microbiomeMZILNDS <- function(SumExp, taxa, covariates, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose, seed){
+microbiomeMZILNDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose){
 
   SumExp <- eval(parse(text=SumExp), envir = parent.frame())
 
 
   # Computes the model
 
-  outome <- IFAA::MZILN(experiment_dat = SumExp,
-                        refTaxa = taxa,
-                        allCov = covariates,
+  outcome <- IFAA::MZILN(experiment_dat = SumExp,
+                        microbVar = microbVar,
+                        refTaxa = refTaxa,
+                        allCov = allCov,
                         sampleIDname = sampleIDname,
                         adjust_method = adjust_method,
                         fdrRate = fdrRate,
@@ -41,30 +42,40 @@ microbiomeMZILNDS <- function(SumExp, taxa, covariates, sampleIDname, adjust_met
                         taxDropThresh = taxDropThresh,
                         standardize = standardize,
                         sequentialRun = sequentialRun,
-                        verbose = verbose,
-                        seed = seed)
+                        verbose = verbose)
 
 
 
-  Results.Ref_Tax <- unlist(results_1[[1]][1])
-  Results.Taxon <- unlist(results_1[[1]][2])
-  Results.Covariate <- unlist(results_1[[1]][3])
-  Results.Estimate <- unlist(results_1[[1]][4])
-  Results.SE.est <- unlist(results_1[[1]][5])
-  Results.CI.low <- unlist(results_1[[1]][6])
-  Results.CI.high <- unlist(results_1[[1]][7])
-  Results.adj.p.value <- unlist(results_1[[1]][8])
-  Results.unadjust.p.value <- unlist(results_1[[1]][9])
-  Results.sig_ind <- unlist(results_1[[1]][10])
+  Results.Ref_Tax <- unlist(outcome[[1]][1])
+  Results.Taxon <- unlist(outcome[[1]][2])
+  Results.Covariate <- unlist(outcome[[1]][3])
+  Results.Estimate <- unlist(outcome[[1]][4])
+  Results.SE.est <- unlist(outcome[[1]][5])
+  Results.CI.low <- unlist(outcome[[1]][6])
+  Results.CI.high <- unlist(outcome[[1]][7])
+  Results.adj.p.value <- unlist(outcome[[1]][8])
+  Results.unadjust.p.value <- unlist(outcome[[1]][9])
+  Results.sig_ind <- unlist(outcome[[1]][10])
 
   Results.FDR <- fdrRate
   Results.Adjust_Method <- adjust_method
-  Results.Seed <- seed
   Results.Boots <- bootB
 
 
 
-  output <- data.frame(Results.Ref_Tax, Results.Taxon, Results.Covariate, Results.Estimate, Results.SE.est, Results.CI.low, Results.CI.high, Results.adj.p.value, Results.unadjust.p.value, Results.sig_ind, Results.FDR, Results.Adjust_Method, Results.Seed, Results.Boots)
+  output <- data.frame(Results.Ref_Tax,
+                       Results.Taxon,
+                       Results.Covariate,
+                       Results.Estimate,
+                       Results.SE.est,
+                       Results.CI.low,
+                       Results.CI.high,
+                       Results.adj.p.value,
+                       Results.unadjust.p.value,
+                       Results.sig_ind,
+                       Results.FDR,
+                       Results.Adjust_Method,
+                       Results.Boots)
 
   # the resulting model will be returned to the analyst
   return(output)

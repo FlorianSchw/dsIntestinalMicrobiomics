@@ -6,8 +6,9 @@
 \usage{
 microbiomeMZILNDS(
   SumExp,
-  taxa,
-  covariates,
+  microbVar,
+  refTaxa,
+  allCov,
   sampleIDname,
   adjust_method,
   fdrRate,
@@ -16,16 +17,17 @@ microbiomeMZILNDS(
   taxDropThresh,
   standardize,
   sequentialRun,
-  verbose,
-  seed
+  verbose
 )
 }
 \arguments{
 \item{SumExp}{is a string character of the data.frame}
 
-\item{taxa}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)}
+\item{microbVar}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
 
-\item{covariates}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
+\item{refTaxa}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)}
+
+\item{allCov}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
 
 \item{sampleIDname}{is a string character for the sample ID variable.}
 
@@ -44,8 +46,6 @@ microbiomeMZILNDS(
 \item{sequentialRun}{is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.}
 
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
-
-\item{seed}{Random seed for reproducibility. Can be set to NULL to remove seeding.}
 }
 \value{
 {microbiomeMZILNDS} returns the outcome of the specified multivariate zero-inflated logistic normal model

@@ -15,7 +15,9 @@ int.originDataScreen_imputed <- function(data,
                                      covsPrefix,
                                      binPredInd,
                                      adjust_method = "fdr",
-                                     fwerRate = 0.25) {
+                                     fwerRate = 0.25,
+                                     information_goodRef,
+                                     information_refTaxa) {
   results <- list()
 
   # load data info
