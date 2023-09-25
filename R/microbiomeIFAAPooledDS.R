@@ -185,7 +185,7 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
     )
   }
 
-
+  results$MicrobName <- microbName
 
 
 
