@@ -19,8 +19,6 @@ AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
   microbiomeIFAAPooledDS,
-  microbiomeIFAAPooledDS2,
-  microbiomeIFAAPooledDS3,
   microbiomeZoibDS,
   microbiomeBetaregDS,
   microbiomeMZILNPooledDS1

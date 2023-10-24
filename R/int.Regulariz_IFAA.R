@@ -4,37 +4,35 @@
 
 
 
-int.Regulariz.IFAA3 <- function(data,
-                                testCovInd,
-                                testCovInOrder,
-                                testCovInNewNam,
-                                microbName,
-                                sub_taxa,
-                                nRef,
-                                nRefMaxForEsti,
-                                refTaxa,
-                                paraJobs,
-                                binaryInd,
-                                binaryInd_test,
-                                covsPrefix,
-                                Mprefix,
-                                fwerRate,
-                                bootB,
-                                sequentialRun,
-                                allFunc,
-                                refReadsThresh,
-                                SDThresh,
-                                SDquantilThresh,
-                                balanceCut,
-                                adjust_method,
-                                phase1_taxon_num = 200,
-                                trans_x_col = 200,
-                                spar_cutoff = 10,
-                                finalIndpRefTax = finalIndpRefTax,
-                                goodIndpRefTaxNam = goodIndpRefTaxNam) {
-
-
-
+int.Regulariz_IFAA <- function(data,
+                      testCovInd,
+                      testCovInOrder,
+                      testCovInNewNam,
+                      microbName,
+                      sub_taxa,
+                      nRef,
+                      nRefMaxForEsti,
+                      refTaxa,
+                      refTaxa_newNam,
+                      paraJobs,
+                      binaryInd,
+                      binaryInd_test,
+                      covsPrefix,
+                      Mprefix,
+                      fwerRate,
+                      bootB,
+                      sequentialRun,
+                      allFunc,
+                      refReadsThresh,
+                      SDThresh,
+                      SDquantilThresh,
+                      balanceCut,
+                      adjust_method,
+                      phase1_taxon_num = 200,
+                      trans_x_col = 200,
+                      spar_cutoff = 10) {
+  results <- list()
+  regul.start.time <- proc.time()[3]
 
   nTestCov <- length(testCovInd)
 
@@ -59,7 +57,39 @@ int.Regulariz.IFAA3 <- function(data,
   nTaxa <- data.info$nTaxa
   predNames <- data.info$predNames
 
-  results <- list()
+  results$goodRefTaxaCandi <- data.info$goodRefTaxaCandi
+
+  num_taxon_phase1 <- max(length(refTaxa_newNam), phase1_taxon_num)
+  num_taxon_phase1 <- min(num_taxon_phase1, nTaxa)
+  phase1_taxon_sample_pool <- results$goodRefTaxaCandi[!(results$goodRefTaxaCandi %in% refTaxa_newNam)]
+  if (length(phase1_taxon_sample_pool) > (num_taxon_phase1 - length(refTaxa_newNam))) {
+    phase1_taxon_sample1 <- c(sample(phase1_taxon_sample_pool,
+                                     num_taxon_phase1 - length(refTaxa_newNam)),
+                              refTaxa_newNam)
+  } else {
+    phase1_taxon_sample1 <- c(phase1_taxon_sample_pool, refTaxa_newNam)
+  }
+  phase1_taxon_sample <- phase1_taxon_sample1
+
+
+  if (length(phase1_taxon_sample1) < num_taxon_phase1) {
+    not_good_candi <- taxaNames[!((taxaNames %in% results$goodRefTaxaCandi) | (taxaNames %in% refTaxa_newNam))]
+    non_zero_per_taxon <- colSums(data[, not_good_candi, drop = FALSE] > 0)
+    phase1_taxon_sample2 <-
+      names(sort(non_zero_per_taxon, decreasing = TRUE)[seq_len(num_taxon_phase1 -
+                                                                  length(phase1_taxon_sample1))])
+    phase1_taxon_sample <-
+      c(phase1_taxon_sample1, phase1_taxon_sample2)
+  }
+
+  data_sub_phase1 <- data[, c(phase1_taxon_sample, predNames)]
+
+  rm(data.info)
+
+  regul.start.time <- proc.time()[3]
+  message("Start Phase 1 analysis")
+
+  t1phase1 <- proc.time()[3]
 
 
   #### continuation of the code from the previous left-over chunks of client-/server-side changes
@@ -72,7 +102,7 @@ int.Regulariz.IFAA3 <- function(data,
     nBinPred <- length(allBinPred)
 
     # find the pairs of binary preds and taxa for which the assocaiton is not identifiable
-    AllTaxaNamesNoRefTax <- taxaNames[!microbName %in% finalIndpRefTax]
+    AllTaxaNamesNoRefTax <- taxaNames[!microbName %in% refTaxa]
     unbalanceTaxa <- c()
     unbalancePred <- c()
     for (i in AllTaxaNamesNoRefTax) {
@@ -88,11 +118,11 @@ int.Regulariz.IFAA3 <- function(data,
     }
     if (length(unbalanceTaxa) > 0) {
       unbalanceTaxa_ori_name <- microbName[unlist(lapply(unbalanceTaxa, function(x) {
-          which(taxaNames %in% x)
-        }))]
+        which(taxaNames %in% x)
+      }))]
       unbalancePred_ori_name <- testCovInOrder[unlist(lapply(unbalancePred, function(x) {
-          which(testCovInNewNam %in% x)
-        }))]
+        which(testCovInNewNam %in% x)
+      }))]
     } else {
       unbalanceTaxa_ori_name <- NULL
       unbalancePred_ori_name <- NULL
@@ -103,7 +133,7 @@ int.Regulariz.IFAA3 <- function(data,
     unbalancePred_ori_name <- NULL
   }
 
-  allRefTaxNam <- unique(c(finalIndpRefTax, goodIndpRefTaxNam))
+  allRefTaxNam <- refTaxa
   nGoodIndpRef <- length(allRefTaxNam)
   results$allRefTaxNam <- allRefTaxNam
 
@@ -125,8 +155,8 @@ int.Regulariz.IFAA3 <- function(data,
   taxaNames_shuff <- taxaNames
 
   spar_each_taxon <- apply(data[, taxaNames_shuff], 2, function(x) {
-      sum(x == 0) / length(x)
-    })
+    sum(x == 0) / length(x)
+  })
   high_spar_taxon <- spar_each_taxon[spar_each_taxon > 0.7]
   low_spar_taxon <- spar_each_taxon[spar_each_taxon <= 0.7]
 
@@ -174,6 +204,8 @@ int.Regulariz.IFAA3 <- function(data,
 
 
   return(results)
+
+
 
 
 

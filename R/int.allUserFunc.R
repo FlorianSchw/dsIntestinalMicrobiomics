@@ -11,9 +11,7 @@ int.allUserFunc <- function() {
     c(
       "int.dataRecovTrans",
       "int.AIcalcu",
-      "int.lm_sparse",
-      "int.runlinear",
-      "int.runlinear.IFAA1"
+      "int.lm_sparse"
     )
   )
 }

@@ -130,7 +130,7 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
   refTaxa_newNam <- newMicrobNames[microbName %in% refTaxa]
 
   if (verbose) {
-    results$analysisResults <- int.Regulariz.IFAA1(
+    results$analysisResults <- int.Regulariz_IFAA(
       data = data,
       testCovInd = testCovInd,
       testCovInOrder = testCovInOrder,
@@ -143,7 +143,8 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
       binaryInd_test = binaryInd_test,
       covsPrefix = covsPrefix,
       Mprefix = Mprefix,
-      refTaxa = refTaxa_newNam,
+      refTaxa_newNam = refTaxa_newNam,
+      refTaxa = refTaxa,
       paraJobs = paraJobs,
       adjust_method = adjust_method,
       fwerRate = fdrRate,
@@ -157,7 +158,7 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
     )
   } else {
     results$analysisResults <- suppressMessages(
-      int.Regulariz.IFAA1(
+      int.Regulariz_IFAA(
         data = data,
         testCovInd = testCovInd,
         testCovInOrder = testCovInOrder,

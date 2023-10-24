@@ -3,8 +3,6 @@
 export(microbiomeBetaregDS)
 export(microbiomeIFAADS)
 export(microbiomeIFAAPooledDS)
-export(microbiomeIFAAPooledDS2)
-export(microbiomeIFAAPooledDS3)
 export(microbiomeMZILNDS)
 export(microbiomeMZILNPooledDS1)
 export(microbiomeZoibDS)
