@@ -9,9 +9,10 @@ Description: Server side functions for microbiome analysis with DataSHIELD.
 Depends: 
   R(>= 3.6.0),
   doRNG
+biocViews: SummarizedExperiment
 Imports: 
-  betareg
-biocViews: SummarizedExperiment, IFAA
+  betareg,
+  IFAA
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
