@@ -7,13 +7,11 @@ License: GPL-3 + file LICENSE
 Title: DataSHIELD server side functions for the dsIntestinalMicrobiomics package
 Description: Server side functions for microbiome analysis with DataSHIELD.
 Depends: 
-  R(>= 4.2.0),
-  doRNG,
-  IFAA(>= 1.1.2),
-  SummarizedExperiment
+  R(>= 3.6.0),
+  doRNG
 Imports: 
-  betareg
-
+  betareg,
+  SummarizedExperiment
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
