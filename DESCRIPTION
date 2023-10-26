@@ -10,8 +10,8 @@ Depends:
   R(>= 3.6.0),
   doRNG
 Imports: 
-  betareg,
-  SummarizedExperiment
+  betareg
+biocViews: SummarizedExperiment
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
