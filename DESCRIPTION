@@ -12,14 +12,12 @@ Depends:
 Imports: 
   IFAA,
   SummarizedExperiment,
-  betareg,
-  zoib,
-  doRNG
+  doRNG,
+  betareg
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
   microbiomeIFAAPooledDS,
-  microbiomeZoibDS,
   microbiomeBetaregDS,
   microbiomeMZILNPooledDS1
 AssignMethods:
