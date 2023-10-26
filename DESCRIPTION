@@ -11,7 +11,7 @@ Depends:
   doRNG
 Imports: 
   betareg
-biocViews: SummarizedExperiment
+biocViews: SummarizedExperiment, IFAA
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
