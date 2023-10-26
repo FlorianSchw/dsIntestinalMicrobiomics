@@ -8,12 +8,12 @@ Title: DataSHIELD server side functions for the dsIntestinalMicrobiomics package
 Description: Server side functions for microbiome analysis with DataSHIELD.
 Depends: 
   R(>= 4.2.0),
-  BiocManager,
   doRNG,
   IFAA(>= 1.1.2),
   SummarizedExperiment
 Imports: 
   betareg
+Remotes: bioc::3.3/SummarizedExperiment
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeIFAADS,
