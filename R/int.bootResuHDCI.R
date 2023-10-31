@@ -1,14 +1,7 @@
 #### Needs proper Documentation as an internal function
 
 #' @import doRNG
-
-
-
-
-
-
-
-
+#' @import foreach
 
 
 int.bootResuHDCI <- function(data,
@@ -30,22 +23,19 @@ int.bootResuHDCI <- function(data,
                              paraJobs,
                              sequentialRun,
                              taxa_sepname_list_arg,
-                             subsamp_cut = 3) {
+                             subsamp_cut = 3){
   results <- list()
-  # load data info
   basicInfo <- int.dataInfo(
     data = data,
     binPredInd = binPredInd,
     covsPrefix = covsPrefix,
-    Mprefix = Mprefix
-  )
+    Mprefix = Mprefix)
+
   taxaNames <- basicInfo$taxaNames
   ii <- which(basicInfo$taxaNames %in% refTaxa)
   predNames <- basicInfo$predNames
   nTaxa <- basicInfo$nTaxa
   nPredics <- basicInfo$nPredics
-  rm(basicInfo)
-  gc()
 
   nNorm <- nTaxa - 1
   nAlphaNoInt <- nPredics * nNorm
@@ -58,12 +48,9 @@ int.bootResuHDCI <- function(data,
   taxa_sepname_list<-lapply(taxa_sepname_list_noref, function(x) c(x,refTaxa))
 
   taxa_sepname_list_noref_vec <- unlist(taxa_sepname_list_noref)
-  taxa_sepname_numeric <-
-    as.numeric(sub(
-      pattern = Mprefix,
-      replacement = "",
-      x = taxa_sepname_list_noref_vec
-    ))
+  taxa_sepname_numeric <- as.numeric(sub(pattern = Mprefix,
+                                         replacement = "",
+                                         x = taxa_sepname_list_noref_vec))
 
 
   if (length(paraJobs) == 0) {
@@ -76,16 +63,15 @@ int.bootResuHDCI <- function(data,
     }
   }
 
-  if (!sequentialRun) {
+  if (!sequentialRun){
     message(
       paraJobs,
-      " parallel jobs are registered for analyzing reference taxa in Phase 2"
-    )
+      " parallel jobs are registered for analyzing reference taxa in Phase 2")
   }
 
   cl <- parallel::makeCluster(paraJobs)
 
-  #
+
   parallel::clusterExport(
     cl = cl,
     varlist = allFunc,
@@ -115,7 +101,6 @@ int.bootResuHDCI <- function(data,
     )
     x <- dataForEst$xTildalong
     y <- dataForEst$UtildaLong
-    rm(dataForEst, data_sub_taxa)
 
     xCol <- ncol(x)
 

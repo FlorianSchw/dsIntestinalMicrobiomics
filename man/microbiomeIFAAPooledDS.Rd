@@ -6,15 +6,13 @@
 \usage{
 microbiomeIFAAPooledDS(
   SumExp,
-  microbVar,
-  testCov,
-  ctrlCov,
+  microbVar_ds,
+  testCov_ds,
+  ctrlCov_ds,
   sampleIDname,
   testMany,
   ctrlMany,
-  nRef,
-  nRefMaxForEsti,
-  refTaxa,
+  refTaxa_ds,
   adjust_method,
   fdrRate,
   paraJobs,
@@ -32,23 +30,11 @@ microbiomeIFAAPooledDS(
 \arguments{
 \item{SumExp}{is a string character of the data.frame}
 
-\item{microbVar}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
-
-\item{testCov}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
-
-\item{ctrlCov}{is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)}
-
 \item{sampleIDname}{is a string character for the sample ID variable.}
 
 \item{testMany}{is a logical. If 'TRUE' and 'covariates' are set to NULL, then all variables in the 'covariates' will be used.}
 
 \item{ctrlMany}{is a logical. If 'TRUE' and 'confounders' are set to NULL, then all variables except the 'coviariates' will be used as confounders.}
-
-\item{nRef}{number of randomly picked reference taxa used in phase 1.}
-
-\item{nRefMaxForEsti}{maximum number of final reference taxa used in phase 2.}
-
-\item{refTaxa}{vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.}
 
 \item{adjust_method}{The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.}
 
@@ -71,6 +57,18 @@ microbiomeIFAAPooledDS(
 \item{balanceCut}{The threshold of the proportion of non-zero sequencing reads in each group of a binary variable for choosing the final reference taxa in phase 2. The default is 0.2 meaning at least 20\% non-zero sequencing reads in each group are needed to be eligible for being chosen as a final reference taxon.}
 
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
+
+\item{microbVar}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
+
+\item{testCov}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
+
+\item{ctrlCov}{is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)}
+
+\item{nRef}{number of randomly picked reference taxa used in phase 1.}
+
+\item{nRefMaxForEsti}{maximum number of final reference taxa used in phase 2.}
+
+\item{refTaxa}{vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.}
 
 \item{SDTresh}{The threshold of standard deviations of sequencing reads for being chosen as the reference taxon in phase 2. The default is 0.05 which means the standard deviation of sequencing reads should be at least 0.05 in order to be chosen as a reference taxon.}
 }

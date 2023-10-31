@@ -32,17 +32,58 @@
 #'
 
 
-microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleIDname, testMany, ctrlMany, nRef, nRefMaxForEsti, refTaxa, adjust_method,
-                             fdrRate, paraJobs, bootB, standardize, sequentialRun, refReadsThresh, taxDropThresh, SDThresh, SDquantilThresh, balanceCut, verbose){
+microbiomeIFAAPooledDS <- function(SumExp,
+                                   microbVar_ds,
+                                   testCov_ds,
+                                   ctrlCov_ds,
+                                   sampleIDname,
+                                   testMany,
+                                   ctrlMany,
+                                   refTaxa_ds,
+                                   adjust_method,
+                                   fdrRate,
+                                   paraJobs,
+                                   bootB,
+                                   standardize,
+                                   sequentialRun,
+                                   refReadsThresh,
+                                   taxDropThresh,
+                                   SDThresh,
+                                   SDquantilThresh,
+                                   balanceCut,
+                                   verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
+
+  if(!(is.null(microbVar_ds))){
+    microbVar <- unlist(strsplit(microbVar_ds, split=","))
+  } else {
+    microbVar <- microbVar_ds
+  }
+
+  if(!(is.null(testCov_ds))){
+    testCov <- unlist(strsplit(testCov_ds, split=","))
+  } else {
+    testCov <- testCov_ds
+  }
+
+  if(!(is.null(ctrlCov_ds))){
+    ctrlCov <- unlist(strsplit(ctrlCov_ds, split=","))
+  } else {
+    ctrlCov <- ctrlCov_ds
+  }
+
+  if(!(is.null(refTaxa_ds))){
+    refTaxa <- unlist(strsplit(refTaxa_ds, split=","))
+  } else {
+    refTaxa <- refTaxa_ds
+  }
 
 
 
   allFunc <- int.allUserFunc()
 
   results <- list()
-  start.time <- proc.time()[3]
   assay_name <- names(SummarizedExperiment::assays(experiment_dat))
   MicrobData <- data.frame(t(SummarizedExperiment::assays(experiment_dat)[[assay_name]]))
 
@@ -93,7 +134,6 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
   ctrlCov <- runMeta$ctrlCov
   microbName <- runMeta$microbName
   newMicrobNames <- runMeta$newMicrobNames
-  results$covriateNames <- runMeta$xNames
 
   binaryInd_test <- testCovInd[testCovInd %in% binaryInd]
 
@@ -122,11 +162,6 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
   }
 
 
-  if (nRefMaxForEsti < 2) {
-    nRefMaxForEsti <- 2
-    warning("Needs at least two final reference taxon for estimation.")
-  }
-
   refTaxa_newNam <- newMicrobNames[microbName %in% refTaxa]
 
   if (verbose) {
@@ -137,8 +172,6 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
       testCovInNewNam = testCovInNewNam,
       microbName = microbName,
       sub_taxa = microbVar,
-      nRef = nRef,
-      nRefMaxForEsti = nRefMaxForEsti,
       binaryInd = binaryInd,
       binaryInd_test = binaryInd_test,
       covsPrefix = covsPrefix,
@@ -165,8 +198,6 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
         testCovInNewNam = testCovInNewNam,
         microbName = microbName,
         sub_taxa = microbVar,
-        nRef = nRef,
-        nRefMaxForEsti = nRefMaxForEsti,
         binaryInd = binaryInd,
         binaryInd_test = binaryInd_test,
         covsPrefix = covsPrefix,
@@ -186,27 +217,9 @@ microbiomeIFAAPooledDS <- function(SumExp, microbVar, testCov, ctrlCov, sampleID
     )
   }
 
-  results$MicrobName <- microbName
-
 
 
   return(results)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
