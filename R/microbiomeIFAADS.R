@@ -10,8 +10,6 @@
 #' @param sampleIDname is a string character for the sample ID variable.
 #' @param testMany is a logical. If 'TRUE' and 'testCov' are set to NULL, then all variables in the 'testCov' will be used.
 #' @param ctrlMany is a logical. If 'TRUE' and 'ctrlCov' are set to NULL, then all variables except the 'coviariates' will be used as confounders.
-#' @param nRef number of randomly picked reference taxa used in phase 1.
-#' @param nRefMaxForEsti maximum number of final reference taxa used in phase 2.
 #' @param refTaxa vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
