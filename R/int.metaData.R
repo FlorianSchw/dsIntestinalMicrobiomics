@@ -257,13 +257,13 @@ int.metaData <- function(MicrobData,
       if (!(mini == 0 & maxi == 1)) {
         Covariates[Covariates[, i] == mini, i] <- 0
         Covariates[Covariates[, i] == maxi, i] <- 1
-        message(
-          "Binary covariate",
-          i,
-          "is not coded as 0/1 which may generate
-                  analysis bias. It has been changed to 0/1. The changed covariates
-                  data can be extracted from the result file."
-        )
+        # message(
+        #   "Binary covariate",
+        #   i,
+        #   "is not coded as 0/1 which may generate
+        #           analysis bias. It has been changed to 0/1. The changed covariates
+        #           data can be extracted from the result file."
+        # )
       }
     }
   } else {
@@ -367,57 +367,57 @@ int.metaData <- function(MicrobData,
   )
 
   # output data summary
-  message("Data dimensions (after removing missing data if any):")
-  message(dim(results$data)[1], " samples")
-  message(ncol(Mdata), " taxa/OTU/ASV")
+  # message("Data dimensions (after removing missing data if any):")
+  # message(dim(results$data)[1], " samples")
+  # message(ncol(Mdata), " taxa/OTU/ASV")
 
-  if (!MZILN) {
-    message(
-      length(results$testCovInOrder),
-      " testCov variables in the analysis"
-    )
-  }
-  if (MZILN) {
-    message(length(results$testCovInOrder), " covariates in the analysis")
-  }
-
-  if (length(results$testCovInOrder) > 0) {
-    if (!MZILN) {
-      message("These are the testCov variables:")
-    }
-    if (MZILN) {
-      message("These are the covariates:")
-    }
-    testCovPrint <- results$testCovInOrder[1]
-    if (length(results$testCovInOrder) > 1) {
-      for (i in 2:length(results$testCovInOrder)) {
-        testCovPrint <-
-          paste0(testCovPrint, ", ", results$testCovInOrder[i])
-      }
-    }
-    message(testCovPrint)
-  }
-  rm(testCov)
-  if (!MZILN) {
-    message(length(ctrlCov), " ctrlCov variables in the analysis ")
-    if (length(ctrlCov) > 0) {
-      message("These are the ctrlCov variables:")
-      ctrlCovPrint <- ctrlCov[1]
-      if (length(ctrlCov) > 1) {
-        for (i in 2:length(ctrlCov)) {
-          ctrlCovPrint <- paste0(ctrlCovPrint, ", ", ctrlCov[i])
-        }
-      }
-      message(ctrlCovPrint)
-    }
-    rm(ctrlCov)
-  }
-  message(results$nBinVars, " binary covariates in the analysis")
-  if (results$nBinVars > 0) {
-    message("These are the binary covariates:")
-    out_message <- paste0(results$varNamForBin, " ")
-    message(out_message)
-  }
-  rm(Mdata, Covariates, binCheck)
+  # if (!MZILN) {
+  #   message(
+  #     length(results$testCovInOrder),
+  #     " testCov variables in the analysis"
+  #   )
+  # }
+  # if (MZILN) {
+  #   message(length(results$testCovInOrder), " covariates in the analysis")
+  # }
+  #
+  # if (length(results$testCovInOrder) > 0) {
+  #   if (!MZILN) {
+  #     message("These are the testCov variables:")
+  #   }
+  #   if (MZILN) {
+  #     message("These are the covariates:")
+  #   }
+  #   testCovPrint <- results$testCovInOrder[1]
+  #   if (length(results$testCovInOrder) > 1) {
+  #     for (i in 2:length(results$testCovInOrder)) {
+  #       testCovPrint <-
+  #         paste0(testCovPrint, ", ", results$testCovInOrder[i])
+  #     }
+  #   }
+  #   message(testCovPrint)
+  # }
+  # rm(testCov)
+  # if (!MZILN) {
+  #   message(length(ctrlCov), " ctrlCov variables in the analysis ")
+  #   if (length(ctrlCov) > 0) {
+  #     message("These are the ctrlCov variables:")
+  #     ctrlCovPrint <- ctrlCov[1]
+  #     if (length(ctrlCov) > 1) {
+  #       for (i in 2:length(ctrlCov)) {
+  #         ctrlCovPrint <- paste0(ctrlCovPrint, ", ", ctrlCov[i])
+  #       }
+  #     }
+  #     message(ctrlCovPrint)
+  #   }
+  #   rm(ctrlCov)
+  # }
+  # message(results$nBinVars, " binary covariates in the analysis")
+  # if (results$nBinVars > 0) {
+  #   message("These are the binary covariates:")
+  #   out_message <- paste0(results$varNamForBin, " ")
+  #   message(out_message)
+  # }
+  # rm(Mdata, Covariates, binCheck)
   return(results)
 }
