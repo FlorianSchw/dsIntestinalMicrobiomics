@@ -60,10 +60,12 @@ int.metaData <- function(MicrobData,
     )
   }
   MdataWithoutId <- MdataWithoutId[, uniqMnames]
-  MdataWithId <-
-    cbind(MdataWithId[, linkIDname, drop = FALSE], MdataWithoutId)
+  MdataWithId <- cbind(MdataWithId[, linkIDname, drop = FALSE], MdataWithoutId)
 
-  if (!all(MdataWithoutId >= 0)) {
+  rows_fully_NA <- which(rowSums(is.na(MdataWithoutId)) == ncol(MdataWithoutId))
+
+
+  if (!all(MdataWithoutId[-rows_fully_NA,] >= 0)) {
     stop("Microbiome data contains negative values.")
   }
   rm(MdataWithoutId)
