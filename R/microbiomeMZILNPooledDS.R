@@ -24,7 +24,7 @@
 #'
 
 
-microbiomeMZILNPooledDS1 <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose){
+microbiomeMZILNPooledDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
 

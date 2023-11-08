@@ -30,11 +30,19 @@ microbiomeIFAAPooledDS(
 \arguments{
 \item{SumExp}{is a string character of the data.frame}
 
+\item{microbVar_ds}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
+
+\item{testCov_ds}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
+
+\item{ctrlCov_ds}{is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)}
+
 \item{sampleIDname}{is a string character for the sample ID variable.}
 
 \item{testMany}{is a logical. If 'TRUE' and 'covariates' are set to NULL, then all variables in the 'covariates' will be used.}
 
 \item{ctrlMany}{is a logical. If 'TRUE' and 'confounders' are set to NULL, then all variables except the 'coviariates' will be used as confounders.}
+
+\item{refTaxa_ds}{vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.}
 
 \item{adjust_method}{The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.}
 
@@ -58,18 +66,6 @@ microbiomeIFAAPooledDS(
 
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
 
-\item{microbVar}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
-
-\item{testCov}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
-
-\item{ctrlCov}{is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)}
-
-\item{nRef}{number of randomly picked reference taxa used in phase 1.}
-
-\item{nRefMaxForEsti}{maximum number of final reference taxa used in phase 2.}
-
-\item{refTaxa}{vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.}
-
 \item{SDTresh}{The threshold of standard deviations of sequencing reads for being chosen as the reference taxon in phase 2. The default is 0.05 which means the standard deviation of sequencing reads should be at least 0.05 in order to be chosen as a reference taxon.}
 }
 \value{
@@ -79,7 +75,7 @@ microbiomeIFAAPooledDS(
 This function calls the native R function from the IFAA package
 }
 \details{
-The function computes an association from a SummerizedExperiment object with a given set of
+The function computes an association from a SummarizedExperiment object with a given set of
 confounders and covariates.
 }
 \author{

@@ -1,18 +1,16 @@
 #'
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls the native R function from the IFAA package
-#' @details The function computes an association from a SummerizedExperiment object with a given set of
+#' @details The function computes an association from a SummarizedExperiment object with a given set of
 #' confounders and covariates.
 #' @param SumExp is a string character of the data.frame
-#' @param microbVar This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
-#' @param testCov is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
-#' @param ctrlCov is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)
+#' @param microbVar_ds This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' @param testCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
+#' @param ctrlCov_ds is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)
 #' @param sampleIDname is a string character for the sample ID variable.
 #' @param testMany is a logical. If 'TRUE' and 'covariates' are set to NULL, then all variables in the 'covariates' will be used.
 #' @param ctrlMany is a logical. If 'TRUE' and 'confounders' are set to NULL, then all variables except the 'coviariates' will be used as confounders.
-#' @param nRef number of randomly picked reference taxa used in phase 1.
-#' @param nRefMaxForEsti maximum number of final reference taxa used in phase 2.
-#' @param refTaxa vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.
+#' @param refTaxa_ds vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
 #' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
@@ -27,7 +25,6 @@
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
 #' @author Florian Schwarz for the German Institute of Human Nutrition
-#' @import IFAA
 #' @export
 #'
 
@@ -55,6 +52,9 @@ microbiomeIFAAPooledDS <- function(SumExp,
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
 
+  thr <- dsBase::listDisclosureSettingsDS()
+  nfilter.tab <- as.numeric(thr$nfilter.tab)
+
   if(!(is.null(microbVar_ds))){
     microbVar <- unlist(strsplit(microbVar_ds, split=","))
   } else {
@@ -78,6 +78,49 @@ microbiomeIFAAPooledDS <- function(SumExp,
   } else {
     refTaxa <- refTaxa_ds
   }
+
+
+  datashield_cov <- names(experiment_dat@colData@listData)
+  datashield_microb <- experiment_dat@NAMES
+
+
+  test_microbdata <- as.data.frame(t(experiment_dat@assays@data@listData[["MicrobiomeData"]])) %>%
+    summarise(across(all_of(datashield_microb), ~sum(. == 0))) %>%
+    pivot_longer(data = ., cols = everything(), names_to = "Variable", values_to = "Count")
+
+
+  test_covariates <- as.data.frame(experiment_dat@colData@listData) %>%
+    summarise(across(all_of(datashield_cov), ~sum(is.na(.)))) %>%
+    pivot_longer(data = ., cols = everything(), names_to = "Variable", values_to = "Count")
+
+  threshold_ds <- (dim(experiment_dat)[2] - nfilter.tab)
+
+
+  test_combined <- rbind(test_microbdata,
+                         test_covariates)
+
+  test_combined_log <- c()
+  for (rr in 1:length(test_combined$Variable)){
+
+    test_combined_log[rr] <- test_combined$Count[rr] <= threshold_ds
+
+  }
+
+  unsuitable_varialbes <- paste0(test_combined$Variable[!test_combined_log], collapse = ", ")
+
+  if(!(all(test_combined_log))){
+
+    stop(paste0("Not all variables of interest pass the disclosure check: ", unsuitable_varialbes),  call.=FALSE)
+
+  }
+
+
+
+
+
+
+
+
 
 
 
