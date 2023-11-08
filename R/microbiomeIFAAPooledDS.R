@@ -22,6 +22,7 @@
 #' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
 #' @importFrom dplyr %>%
 #' @import tidyr
+#' @import doParallel
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'
