@@ -41,7 +41,7 @@ microbiomeIFAAPooledDS <- function(SumExp,
                                    verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
-  sequentialRun = TRUE
+  sequentialRun <- TRUE
 
 
   thr <- dsBase::listDisclosureSettingsDS()
@@ -105,13 +105,6 @@ microbiomeIFAAPooledDS <- function(SumExp,
     stop(paste0("Not all variables of interest pass the disclosure check: ", unsuitable_varialbes),  call.=FALSE)
 
   }
-
-
-
-
-
-
-
 
 
 
@@ -216,8 +209,6 @@ microbiomeIFAAPooledDS <- function(SumExp,
       paraJobs = paraJobs,
       adjust_method = adjust_method,
       fwerRate = fdrRate,
-      bootB = bootB,
-      sequentialRun = sequentialRun,
       allFunc = allFunc)
   } else {
     results$analysisResults <- suppressMessages(
@@ -237,8 +228,6 @@ microbiomeIFAAPooledDS <- function(SumExp,
         paraJobs = paraJobs,
         adjust_method = adjust_method,
         fwerRate = fdrRate,
-        bootB = bootB,
-        sequentialRun = sequentialRun,
         allFunc = allFunc)
     )
   }
