@@ -20,6 +20,7 @@ int.Regulariz_IFAA <- function(data,
                       fwerRate,
                       allFunc,
                       adjust_method,
+                      sequentialRun,
                       phase1_taxon_num = 200,
                       trans_x_col = 200,
                       spar_cutoff = 10) {
@@ -132,7 +133,8 @@ int.Regulariz_IFAA <- function(data,
       microbName = microbName,
       fwerRate = fwerRate,
       paraJobs = paraJobs,
-      taxa_sepname_list_arg = taxa_sepname_list)
+      taxa_sepname_list_arg = taxa_sepname_list,
+      sequentialRun = sequentialRun)
   }
 
 

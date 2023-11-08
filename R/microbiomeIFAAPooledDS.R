@@ -209,7 +209,8 @@ microbiomeIFAAPooledDS <- function(SumExp,
       paraJobs = paraJobs,
       adjust_method = adjust_method,
       fwerRate = fdrRate,
-      allFunc = allFunc)
+      allFunc = allFunc,
+      sequentialRun = sequentialRun)
   } else {
     results$analysisResults <- suppressMessages(
       int.Regulariz_IFAA(
@@ -228,7 +229,8 @@ microbiomeIFAAPooledDS <- function(SumExp,
         paraJobs = paraJobs,
         adjust_method = adjust_method,
         fwerRate = fdrRate,
-        allFunc = allFunc)
+        allFunc = allFunc,
+        sequentialRun = sequentialRun)
     )
   }
 
