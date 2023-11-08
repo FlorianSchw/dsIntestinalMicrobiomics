@@ -19,11 +19,7 @@ microbiomeIFAAPooledDS(
   bootB,
   standardize,
   sequentialRun,
-  refReadsThresh,
   taxDropThresh,
-  SDThresh,
-  SDquantilThresh,
-  balanceCut,
   verbose
 )
 }
@@ -56,17 +52,9 @@ microbiomeIFAAPooledDS(
 
 \item{sequentialRun}{is a logical. Defines whether there are parallel jobs or not.}
 
-\item{refReadsThresh}{The threshold of proportion of non-zero sequencing reads for choosing the reference taxon in phase 2. Default is 0.2 meaning that at least 20\% non-zero sequencing reads are necessary.}
-
 \item{taxDropThresh}{The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.}
 
-\item{SDquantilThresh}{The threshold of the quantile of standard deviation of sequencing reads, above which could be selected as a reference taxon. Default is 0.}
-
-\item{balanceCut}{The threshold of the proportion of non-zero sequencing reads in each group of a binary variable for choosing the final reference taxa in phase 2. The default is 0.2 meaning at least 20\% non-zero sequencing reads in each group are needed to be eligible for being chosen as a final reference taxon.}
-
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
-
-\item{SDTresh}{The threshold of standard deviations of sequencing reads for being chosen as the reference taxon in phase 2. The default is 0.05 which means the standard deviation of sequencing reads should be at least 0.05 in order to be chosen as a reference taxon.}
 }
 \value{
 \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates

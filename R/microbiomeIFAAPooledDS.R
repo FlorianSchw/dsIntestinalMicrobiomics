@@ -20,6 +20,7 @@
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
+#' @importFrom dplyr %>%
 #' @import tidyverse
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
