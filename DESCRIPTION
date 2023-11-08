@@ -14,8 +14,7 @@ biocViews: SummarizedExperiment
 Imports: 
   foreach,
   IFAA,
-  dplyr,
-  tidyr
+  tidyverse
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeMZILNPooledDS,
