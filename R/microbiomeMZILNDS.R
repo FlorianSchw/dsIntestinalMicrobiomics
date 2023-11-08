@@ -11,10 +11,8 @@
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
 #' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
-#' @param bootB Number of bootstrap samples for obtaining confidence interval of estimates for the high dimensional regression.Default is 500.
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
-#' @param sequentialRun is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return {microbiomeMZILNDS} returns the outcome of the specified multivariate zero-inflated logistic normal model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
@@ -23,10 +21,40 @@
 #'
 
 
-microbiomeMZILNDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose){
+microbiomeMZILNDS <- function(SumExp,
+                              microbVar_ds,
+                              refTaxa_ds,
+                              allCov_ds,
+                              sampleIDname,
+                              adjust_method,
+                              fdrRate,
+                              paraJobs,
+                              taxDropThresh,
+                              standardize,
+                              verbose){
 
   SumExp <- eval(parse(text=SumExp), envir = parent.frame())
+  sequentialRun = TRUE
 
+
+
+  if(!(is.null(microbVar_ds))){
+    microbVar <- unlist(strsplit(microbVar_ds, split=","))
+  } else {
+    microbVar <- microbVar_ds
+  }
+
+  if(!(is.null(refTaxa_ds))){
+    refTaxa <- unlist(strsplit(refTaxa_ds, split=","))
+  } else {
+    refTaxa <- refTaxa_ds
+  }
+
+  if(!(is.null(allCov_ds))){
+    allCov <- unlist(strsplit(allCov_ds, split=","))
+  } else {
+    allCov <- allCov_ds
+  }
 
   # Computes the model
 
@@ -38,7 +66,6 @@ microbiomeMZILNDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, 
                         adjust_method = adjust_method,
                         fdrRate = fdrRate,
                         paraJobs = paraJobs,
-                        bootB = bootB,
                         taxDropThresh = taxDropThresh,
                         standardize = standardize,
                         sequentialRun = sequentialRun,
@@ -46,36 +73,34 @@ microbiomeMZILNDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, 
 
 
 
-  Results.Ref_Tax <- unlist(outcome[[1]][1])
-  Results.Taxon <- unlist(outcome[[1]][2])
-  Results.Covariate <- unlist(outcome[[1]][3])
-  Results.Estimate <- unlist(outcome[[1]][4])
-  Results.SE.est <- unlist(outcome[[1]][5])
-  Results.CI.low <- unlist(outcome[[1]][6])
-  Results.CI.high <- unlist(outcome[[1]][7])
-  Results.adj.p.value <- unlist(outcome[[1]][8])
-  Results.unadjust.p.value <- unlist(outcome[[1]][9])
-  Results.sig_ind <- unlist(outcome[[1]][10])
+  RefTaxa <- unlist(outcome[[1]][1])
+  Taxa <- unlist(outcome[[1]][2])
+  Covariate <- unlist(outcome[[1]][3])
+  Estimate <- unlist(outcome[[1]][4])
+  Std.Error <- unlist(outcome[[1]][5])
+  CI_lower <- unlist(outcome[[1]][6])
+  CI_upper <- unlist(outcome[[1]][7])
+  p.value_adj <- unlist(outcome[[1]][8])
+  p.value_unadj <- unlist(outcome[[1]][9])
+  Significance <- unlist(outcome[[1]][10])
 
-  Results.FDR <- fdrRate
-  Results.Adjust_Method <- adjust_method
-  Results.Boots <- bootB
-
+  FDR <- fdrRate
+  Adjustment_Method <- adjust_method
 
 
-  output <- data.frame(Results.Ref_Tax,
-                       Results.Taxon,
-                       Results.Covariate,
-                       Results.Estimate,
-                       Results.SE.est,
-                       Results.CI.low,
-                       Results.CI.high,
-                       Results.adj.p.value,
-                       Results.unadjust.p.value,
-                       Results.sig_ind,
-                       Results.FDR,
-                       Results.Adjust_Method,
-                       Results.Boots)
+
+  output <- data.frame(Taxa,
+                       RefTaxa,
+                       Covariate,
+                       Estimate,
+                       Std.Error,
+                       CI_lower,
+                       CI_upper,
+                       p.value_unadj,
+                       p.value_adj,
+                       FDR,
+                       Significance,
+                       Adjustment_Method)
 
   # the resulting model will be returned to the analyst
   return(output)

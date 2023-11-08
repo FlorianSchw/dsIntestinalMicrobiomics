@@ -14,15 +14,12 @@
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
 #' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
-#' @param bootB number of bootstrap samples for obtaining confidence interval of estimates in phase 2 for the high dimensional regression. Default is 500.
 #' @param standardize is a logical. If 'TRUE', the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
-#' @param sequentialRun is a logical. Defines whether there are parallel jobs or not.
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
 #' @importFrom dplyr %>%
 #' @import tidyr
-#' @import doParallel
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'
@@ -39,13 +36,13 @@ microbiomeIFAAPooledDS <- function(SumExp,
                                    adjust_method,
                                    fdrRate,
                                    paraJobs,
-                                   bootB,
                                    standardize,
-                                   sequentialRun,
                                    taxDropThresh,
                                    verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
+  sequentialRun = TRUE
+
 
   thr <- dsBase::listDisclosureSettingsDS()
   nfilter.tab <- as.numeric(thr$nfilter.tab)

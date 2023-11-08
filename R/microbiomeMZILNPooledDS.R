@@ -11,23 +11,53 @@
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
 #' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
-#' @param bootB Number of bootstrap samples for obtaining confidence interval of estimates for the high dimensional regression.Default is 500.
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
-#' @param sequentialRun is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return {microbiomeMZILNPooledDS} returns the outcome of the specified multivariate zero-inflated logistic normal model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
-#' @export
 #' @import IFAA
 #' @import doRNG
 #' @import dplyr
+#' @export
 #'
 
 
-microbiomeMZILNPooledDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose){
+microbiomeMZILNPooledDS <- function(SumExp,
+                                    microbVar_ds,
+                                    refTaxa_ds,
+                                    allCov_ds,
+                                    sampleIDname,
+                                    adjust_method,
+                                    fdrRate,
+                                    paraJobs,
+                                    taxDropThresh,
+                                    standardize,
+                                    verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
+  sequentialRun = TRUE
+
+
+  if(!(is.null(microbVar_ds))){
+    microbVar <- unlist(strsplit(microbVar_ds, split=","))
+  } else {
+    microbVar <- microbVar_ds
+  }
+
+  if(!(is.null(refTaxa_ds))){
+    refTaxa <- unlist(strsplit(refTaxa_ds, split=","))
+  } else {
+    refTaxa <- refTaxa_ds
+  }
+
+  if(!(is.null(allCov_ds))){
+    allCov <- unlist(strsplit(allCov_ds, split=","))
+  } else {
+    allCov <- allCov_ds
+  }
+
+
 
   thr <- dsBase::listDisclosureSettingsDS()
   nfilter.tab <- as.numeric(thr$nfilter.tab)
@@ -65,15 +95,6 @@ microbiomeMZILNPooledDS <- function(SumExp, microbVar, refTaxa, allCov, sampleID
     stop(paste0("Not all variables of interest pass the disclosure check: ", unsuitable_varialbes),  call.=FALSE)
 
   }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -172,7 +193,6 @@ microbiomeMZILNPooledDS <- function(SumExp, microbVar, refTaxa, allCov, sampleID
       adjust_method = adjust_method,
       paraJobs = paraJobs,
       fdrRate = fdrRate,
-      bootB = bootB,
       sequentialRun = sequentialRun,
       allFunc = allFunc
     )
@@ -194,7 +214,6 @@ microbiomeMZILNPooledDS <- function(SumExp, microbVar, refTaxa, allCov, sampleID
         adjust_method = adjust_method,
         paraJobs = paraJobs,
         fdrRate = fdrRate,
-        bootB = bootB,
         sequentialRun = sequentialRun,
         allFunc = allFunc
       )
