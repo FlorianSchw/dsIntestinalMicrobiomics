@@ -13,7 +13,9 @@ Depends:
 biocViews: SummarizedExperiment
 Imports: 
   foreach,
-  IFAA
+  IFAA,
+  dplyr,
+  tidyr
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeMZILNPooledDS,
