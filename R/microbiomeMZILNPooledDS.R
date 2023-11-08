@@ -16,17 +16,64 @@
 #' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
 #' @param sequentialRun is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
-#' @return {microbiomeMZILNPooledDS1} returns the outcome of the specified multivariate zero-inflated logistic normal model
+#' @return {microbiomeMZILNPooledDS} returns the outcome of the specified multivariate zero-inflated logistic normal model
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #' @import IFAA
 #' @import doRNG
+#' @import dplyr
 #'
 
 
 microbiomeMZILNPooledDS <- function(SumExp, microbVar, refTaxa, allCov, sampleIDname, adjust_method, fdrRate, paraJobs, bootB, taxDropThresh, standardize, sequentialRun, verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
+
+  thr <- dsBase::listDisclosureSettingsDS()
+  nfilter.tab <- as.numeric(thr$nfilter.tab)
+
+  datashield_cov <- names(experiment_dat@colData@listData)
+  datashield_microb <- experiment_dat@NAMES
+
+
+  test_microbdata <- as.data.frame(t(experiment_dat@assays@data@listData[["MicrobiomeData"]])) %>%
+    summarise(across(all_of(datashield_microb), ~sum(. == 0))) %>%
+    pivot_longer(data = ., cols = everything(), names_to = "Variable", values_to = "Count")
+
+
+  test_covariates <- as.data.frame(experiment_dat@colData@listData) %>%
+    summarise(across(all_of(datashield_cov), ~sum(is.na(.)))) %>%
+    pivot_longer(data = ., cols = everything(), names_to = "Variable", values_to = "Count")
+
+  threshold_ds <- (dim(experiment_dat)[2] - nfilter.tab)
+
+
+  test_combined <- rbind(test_microbdata,
+                         test_covariates)
+
+  test_combined_log <- c()
+  for (rr in 1:length(test_combined$Variable)){
+
+    test_combined_log[rr] <- test_combined$Count[rr] <= threshold_ds
+
+  }
+
+  unsuitable_varialbes <- paste0(test_combined$Variable[!test_combined_log], collapse = ", ")
+
+  if(!(all(test_combined_log))){
+
+    stop(paste0("Not all variables of interest pass the disclosure check: ", unsuitable_varialbes),  call.=FALSE)
+
+  }
+
+
+
+
+
+
+
+
+
 
 
 

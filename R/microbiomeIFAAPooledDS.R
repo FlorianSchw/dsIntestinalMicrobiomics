@@ -17,13 +17,10 @@
 #' @param bootB number of bootstrap samples for obtaining confidence interval of estimates in phase 2 for the high dimensional regression. Default is 500.
 #' @param standardize is a logical. If 'TRUE', the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
 #' @param sequentialRun is a logical. Defines whether there are parallel jobs or not.
-#' @param refReadsThresh The threshold of proportion of non-zero sequencing reads for choosing the reference taxon in phase 2. Default is 0.2 meaning that at least 20\% non-zero sequencing reads are necessary.
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
-#' @param SDTresh The threshold of standard deviations of sequencing reads for being chosen as the reference taxon in phase 2. The default is 0.05 which means the standard deviation of sequencing reads should be at least 0.05 in order to be chosen as a reference taxon.
-#' @param SDquantilThresh The threshold of the quantile of standard deviation of sequencing reads, above which could be selected as a reference taxon. Default is 0.
-#' @param balanceCut The threshold of the proportion of non-zero sequencing reads in each group of a binary variable for choosing the final reference taxa in phase 2. The default is 0.2 meaning at least 20\% non-zero sequencing reads in each group are needed to be eligible for being chosen as a final reference taxon.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
+#' @import dplyr
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'
@@ -43,11 +40,7 @@ microbiomeIFAAPooledDS <- function(SumExp,
                                    bootB,
                                    standardize,
                                    sequentialRun,
-                                   refReadsThresh,
                                    taxDropThresh,
-                                   SDThresh,
-                                   SDquantilThresh,
-                                   balanceCut,
                                    verbose){
 
   experiment_dat <- eval(parse(text=SumExp), envir = parent.frame())
@@ -226,12 +219,7 @@ microbiomeIFAAPooledDS <- function(SumExp,
       fwerRate = fdrRate,
       bootB = bootB,
       sequentialRun = sequentialRun,
-      allFunc = allFunc,
-      refReadsThresh = refReadsThresh,
-      SDThresh = SDThresh,
-      SDquantilThresh = SDquantilThresh,
-      balanceCut = balanceCut
-    )
+      allFunc = allFunc)
   } else {
     results$analysisResults <- suppressMessages(
       int.Regulariz_IFAA(
@@ -252,12 +240,7 @@ microbiomeIFAAPooledDS <- function(SumExp,
         fwerRate = fdrRate,
         bootB = bootB,
         sequentialRun = sequentialRun,
-        allFunc = allFunc,
-        refReadsThresh = refReadsThresh,
-        SDThresh = SDThresh,
-        SDquantilThresh = SDquantilThresh,
-        balanceCut = balanceCut
-      )
+        allFunc = allFunc)
     )
   }
 

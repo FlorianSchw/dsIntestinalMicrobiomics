@@ -12,7 +12,8 @@ Depends:
   doRNG
 biocViews: SummarizedExperiment
 Imports: 
-  foreach
+  foreach,
+  IFAA
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeMZILNPooledDS,
