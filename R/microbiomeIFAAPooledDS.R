@@ -21,7 +21,7 @@
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
 #' @importFrom dplyr %>%
-#' @import tidyverse
+#' @import tidyr
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'
