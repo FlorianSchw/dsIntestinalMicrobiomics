@@ -1,6 +1,6 @@
 #'
 #' @title Computes the association of microbiome data with covariates
-#' @description This function calls the native R function from the IFAA package
+#' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details The function computes an association from a SummarizedExperiment object with a given set of
 #' confounders and covariates.
 #' @param SumExp is a string character of the data.frame
