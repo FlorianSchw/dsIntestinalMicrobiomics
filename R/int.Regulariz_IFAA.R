@@ -1,4 +1,5 @@
-# Needs documentation
+#' @details internal function for the microbiomeIFAAPooledDS function.
+
 
 
 

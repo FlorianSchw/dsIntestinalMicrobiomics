@@ -1,12 +1,12 @@
 #'
 #' @title Computes the multivariate zero-inflated logistic normal model
 #' @description This function calls the native R function from the IFAA package
-#' @details The function computes a model from a SummerizedExperiment object with a given set of
+#' @details The function computes a model from a SummarizedExperiment object with a given set of
 #' microbiome taxa and covariates.
-#' @param SumExp is a string character of the data.frame
-#' @param microbVar This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
-#' @param refTaxa is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
-#' @param allCov is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
+#' @param SumExp is a string character of the SummarizedExperiment object.
+#' @param microbVar_ds This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' @param refTaxa_ds is a string character for the microbiome variable denominator (can also be a vector of microbiome variables).
+#' @param allCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
 #' @param sampleIDname is a string character for the sample ID variable.
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.

@@ -1,5 +1,4 @@
-#### Needs proper Documentation as an internal function
-
+#' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
 #' @import doRNG
 #' @import foreach
 

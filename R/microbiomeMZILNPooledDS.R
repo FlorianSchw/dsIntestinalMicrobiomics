@@ -1,12 +1,12 @@
 #'
 #' @title Computes the multivariate zero-inflated logistic normal model
-#' @description This function calls the native R function from the IFAA package
-#' @details The function computes a model from a SummerizedExperiment object with a given set of
-#' microbiome taxa and covariates.
-#' @param SumExp is a string character of the data.frame
-#' @param microbVar This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
-#' @param refTaxa is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
-#' @param allCov is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
+#' @description This function initiates a custom call of the native R function MZILN from the IFAA package.
+#' @details The function computes a model from a SummarizedExperiment object with a given set of
+#' microbiome taxa and covariates.In contrast to the native R function, only non-disclosive intermediary results will be send back to the analyst.
+#' @param SumExp is a string character of the SummarizedExperiment object
+#' @param microbVar_ds This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' @param refTaxa_ds is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
+#' @param allCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
 #' @param sampleIDname is a string character for the sample ID variable.
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
@@ -14,7 +14,7 @@
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
-#' @return {microbiomeMZILNPooledDS} returns the outcome of the specified multivariate zero-inflated logistic normal model
+#' @return {microbiomeMZILNPooledDS} returns a list consisting of intermediary results, mostly matrix crossproducts, from which estimates will be calculated on the client-side, and some additional information.
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @import IFAA
 #' @import doRNG

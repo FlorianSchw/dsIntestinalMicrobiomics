@@ -2,22 +2,22 @@
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details The function computes an association from a SummarizedExperiment object with a given set of
-#' confounders and covariates.
-#' @param SumExp is a string character of the data.frame
-#' @param microbVar_ds This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' microbiome taxa, covariates and confounders. In contrast to the native R function, there is no phase1 for random refTaxa selection.
+#' @param SumExp is a string character of the SummarizedExperiment object.
+#' @param microbVar_ds is a single microbiome name or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' @param refTaxa_ds vector of microbiome taxa or OTU or ASV names.
 #' @param testCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
-#' @param ctrlCov_ds is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)
+#' @param ctrlCov_ds is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders).
 #' @param sampleIDname is a string character for the sample ID variable.
 #' @param testMany is a logical. If 'TRUE' and 'covariates' are set to NULL, then all variables in the 'covariates' will be used.
 #' @param ctrlMany is a logical. If 'TRUE' and 'confounders' are set to NULL, then all variables except the 'coviariates' will be used as confounders.
-#' @param refTaxa_ds vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.
 #' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
 #' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
 #' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
 #' @param standardize is a logical. If 'TRUE', the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
-#' @return \code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
+#' @return \code{microbiomeIFAAPooledDS} returns a list consisting of intermediary results, mostly matrix crossproducts, from which estimates will be calculated on the client-side, and some additional information.
 #' @importFrom dplyr %>%
 #' @import tidyr
 #' @author Florian Schwarz for the German Institute of Human Nutrition
