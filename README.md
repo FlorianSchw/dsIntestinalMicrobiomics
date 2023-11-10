@@ -8,5 +8,5 @@ This is the server-side part of the DataSHIELD package. You can find the corresp
 install.packages("devtools")
 
 devools::install_github(repo = "FlorianSchw/dsIntestinalMicrobiomics", ref = "main")
-devools::install_github(repo = "FlorianSchw/dsIntestinalMicrobiomics", ref = "1.0.0")
+
 
