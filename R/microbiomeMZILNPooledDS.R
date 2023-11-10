@@ -19,6 +19,9 @@
 #' @import IFAA
 #' @import doRNG
 #' @import dplyr
+#' @import tidyr
+#' @import MatrixExtra
+#' @importFrom dplyr %>%
 #' @export
 #'
 
@@ -67,6 +70,7 @@ microbiomeMZILNPooledDS <- function(SumExp,
 
 
   test_microbdata <- as.data.frame(t(experiment_dat@assays@data@listData[["MicrobiomeData"]])) %>%
+    mutate(across(all_of(datashield_microb), ~replace_na(., 0))) %>%
     summarise(across(all_of(datashield_microb), ~sum(. == 0))) %>%
     pivot_longer(data = ., cols = everything(), names_to = "Variable", values_to = "Count")
 

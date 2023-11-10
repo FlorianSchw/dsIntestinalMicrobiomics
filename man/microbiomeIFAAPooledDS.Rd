@@ -16,21 +16,19 @@ microbiomeIFAAPooledDS(
   adjust_method,
   fdrRate,
   paraJobs,
-  bootB,
   standardize,
-  sequentialRun,
   taxDropThresh,
   verbose
 )
 }
 \arguments{
-\item{SumExp}{is a string character of the data.frame}
+\item{SumExp}{is a string character of the SummarizedExperiment object.}
 
-\item{microbVar_ds}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
+\item{microbVar_ds}{is a single microbiome name or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
 
 \item{testCov_ds}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
 
-\item{ctrlCov_ds}{is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders)}
+\item{ctrlCov_ds}{is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders).}
 
 \item{sampleIDname}{is a string character for the sample ID variable.}
 
@@ -38,7 +36,7 @@ microbiomeIFAAPooledDS(
 
 \item{ctrlMany}{is a logical. If 'TRUE' and 'confounders' are set to NULL, then all variables except the 'coviariates' will be used as confounders.}
 
-\item{refTaxa_ds}{vector of taxa or OTU or ASV names. Theses are reference taxa specified by the user to be used in phase 1.}
+\item{refTaxa_ds}{vector of microbiome taxa or OTU or ASV names. Will be denominator(s) to the microbVar_ds.}
 
 \item{adjust_method}{The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.}
 
@@ -46,25 +44,21 @@ microbiomeIFAAPooledDS(
 
 \item{paraJobs}{If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.}
 
-\item{bootB}{number of bootstrap samples for obtaining confidence interval of estimates in phase 2 for the high dimensional regression. Default is 500.}
-
 \item{standardize}{is a logical. If 'TRUE', the design matrix for X will be standardized in the analyses and the results. Default is FALSE.}
-
-\item{sequentialRun}{is a logical. Defines whether there are parallel jobs or not.}
 
 \item{taxDropThresh}{The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.}
 
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
 }
 \value{
-\code{microbiomeIFAADS} returns the association of the microbiome data with the covariates
+\code{microbiomeIFAAPooledDS} returns a list consisting of intermediary results, mostly matrix crossproducts, from which estimates will be calculated on the client-side, and some additional information.
 }
 \description{
-This function calls the native R function from the IFAA package
+This function calls a custom version of the native R function IFAA from the IFAA package.
 }
 \details{
 The function computes an association from a SummarizedExperiment object with a given set of
-confounders and covariates.
+microbiome taxa, covariates and confounders. In contrast to the native R function, there is no phase1 for random refTaxa selection.
 }
 \author{
 Florian Schwarz for the German Institute of Human Nutrition

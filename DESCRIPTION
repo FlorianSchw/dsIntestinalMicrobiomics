@@ -9,13 +9,16 @@ Description: Server side functions for microbiome analysis with DataSHIELD.
 Depends: 
   R(>= 4.0.0),
   dsBase,
-  doRNG
-biocViews: Software, SummarizedExperiment, IFAA
+  doRNG,
+biocViews:
 Imports: 
   foreach,
   doParallel,
   dplyr,
-  tidyr
+  tidyr,
+  Matrix,
+  SummarizedExperiment,
+  IFAA
 AggregateMethods:
   microbiomeMZILNDS,
   microbiomeMZILNPooledDS,

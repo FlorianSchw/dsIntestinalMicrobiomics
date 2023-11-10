@@ -6,28 +6,26 @@
 \usage{
 microbiomeMZILNDS(
   SumExp,
-  microbVar,
-  refTaxa,
-  allCov,
+  microbVar_ds,
+  refTaxa_ds,
+  allCov_ds,
   sampleIDname,
   adjust_method,
   fdrRate,
   paraJobs,
-  bootB,
   taxDropThresh,
   standardize,
-  sequentialRun,
   verbose
 )
 }
 \arguments{
-\item{SumExp}{is a string character of the data.frame}
+\item{SumExp}{is a string character of the SummarizedExperiment object.}
 
-\item{microbVar}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
+\item{microbVar_ds}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
 
-\item{refTaxa}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)}
+\item{refTaxa_ds}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables).}
 
-\item{allCov}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
+\item{allCov_ds}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
 
 \item{sampleIDname}{is a string character for the sample ID variable.}
 
@@ -37,13 +35,9 @@ microbiomeMZILNDS(
 
 \item{paraJobs}{If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.}
 
-\item{bootB}{Number of bootstrap samples for obtaining confidence interval of estimates for the high dimensional regression.Default is 500.}
-
 \item{taxDropThresh}{The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.}
 
 \item{standardize}{is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.}
-
-\item{sequentialRun}{is a logical. Default is TRUE. It can be set to be FALSE to increase speed if there are multiple taxa in the argument 'taxa'.}
 
 \item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
 }
@@ -54,7 +48,7 @@ microbiomeMZILNDS(
 This function calls the native R function from the IFAA package
 }
 \details{
-The function computes a model from a SummerizedExperiment object with a given set of
+The function computes a model from a SummarizedExperiment object with a given set of
 microbiome taxa and covariates.
 }
 \author{

@@ -19,7 +19,9 @@
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return \code{microbiomeIFAAPooledDS} returns a list consisting of intermediary results, mostly matrix crossproducts, from which estimates will be calculated on the client-side, and some additional information.
 #' @importFrom dplyr %>%
+#' @import dplyr
 #' @import tidyr
+#' @import MatrixExtra
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'
@@ -77,6 +79,7 @@ microbiomeIFAAPooledDS <- function(SumExp,
 
 
   test_microbdata <- as.data.frame(t(experiment_dat@assays@data@listData[["MicrobiomeData"]])) %>%
+    mutate(across(all_of(datashield_microb), ~replace_na(., 0))) %>%
     summarise(across(all_of(datashield_microb), ~sum(. == 0))) %>%
     pivot_longer(data = ., cols = everything(), names_to = "Variable", values_to = "Count")
 
