@@ -10,11 +10,10 @@ Depends:
   R(>= 4.0.0),
   dsBase,
   doRNG
-biocViews: SummarizedExperiment
+biocViews: Software, SummarizedExperiment, IFAA
 Imports: 
   foreach,
   doParallel,
-  IFAA,
   dplyr,
   tidyr
 AggregateMethods:
