@@ -5,7 +5,7 @@
 #' microbiome taxa, covariates and confounders. In contrast to the native R function, there is no phase1 for random refTaxa selection.
 #' @param SumExp is a string character of the SummarizedExperiment object.
 #' @param microbVar_ds is a single microbiome name or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
-#' @param refTaxa_ds vector of microbiome taxa or OTU or ASV names.
+#' @param refTaxa_ds vector of microbiome taxa or OTU or ASV names. Will be denominator(s) to the microbVar_ds.
 #' @param testCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
 #' @param ctrlCov_ds is a string character for the covariates that will be adjusted in the model (can also be a vector of confounders).
 #' @param sampleIDname is a string character for the sample ID variable.
