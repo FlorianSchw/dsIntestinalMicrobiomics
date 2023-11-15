@@ -19,7 +19,8 @@ Imports:
   MatrixExtra,
   methods,
   DescTools,
-  SummarizedExperiment
+  SummarizedExperiment,
+  RCurl
 biocViews: 
 AggregateMethods:
   microbiomeMZILNPooledDS,
