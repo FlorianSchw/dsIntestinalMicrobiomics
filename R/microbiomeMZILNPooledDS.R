@@ -16,11 +16,9 @@
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return {microbiomeMZILNPooledDS} returns a list consisting of intermediary results, mostly matrix crossproducts, from which estimates will be calculated on the client-side, and some additional information.
 #' @author Florian Schwarz for the German Institute of Human Nutrition
-#' @import IFAA
 #' @import doRNG
 #' @import dplyr
 #' @import tidyr
-#' @import MatrixExtra
 #' @importFrom dplyr %>%
 #' @export
 #'
@@ -152,7 +150,7 @@ microbiomeMZILNPooledDS <- function(SumExp,
   ctrlCov <- runMeta$ctrlCov
   microbName <- runMeta$microbName
   newMicrobNames <- runMeta$newMicrobNames
-  results$covriateNames <- runMeta$xNames
+
   rm(runMeta)
 
   binaryInd_test <- testCovInd[testCovInd %in% binaryInd]
@@ -226,7 +224,6 @@ microbiomeMZILNPooledDS <- function(SumExp,
 
 
 
-  results$linkIDname <- linkIDname
 
 
   #### the return object needs to be specified better

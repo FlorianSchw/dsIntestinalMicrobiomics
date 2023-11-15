@@ -141,7 +141,7 @@ int.Regulariz_IFAA <- function(data,
 
   results$nSub <- nSub
   results$nTaxa <- nTaxa
-
+  results$qualifyData <- dim(qualifyData)[1]
 
   return(results)
 

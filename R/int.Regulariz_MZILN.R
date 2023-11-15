@@ -176,6 +176,7 @@ int.Regulariz_MZILN <- function(data,
 
   results$nSub <- nSub
   results$nTaxa <- nTaxa
+  results$qualifyData <- dim(qualifyData)[1]
 
 
 

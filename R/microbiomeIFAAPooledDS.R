@@ -22,6 +22,9 @@
 #' @import dplyr
 #' @import tidyr
 #' @import MatrixExtra
+#' @import Matrix
+#' @import DescTools
+#' @import methods
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'
