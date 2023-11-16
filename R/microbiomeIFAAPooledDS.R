@@ -25,6 +25,7 @@
 #' @import Matrix
 #' @import DescTools
 #' @import methods
+#' @import parallelly
 #' @author Florian Schwarz for the German Institute of Human Nutrition
 #' @export
 #'

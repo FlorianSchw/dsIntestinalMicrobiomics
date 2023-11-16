@@ -19,6 +19,11 @@
 #' @import doRNG
 #' @import dplyr
 #' @import tidyr
+#' @import MatrixExtra
+#' @import Matrix
+#' @import DescTools
+#' @import methods
+#' @import parallelly
 #' @importFrom dplyr %>%
 #' @export
 #'
