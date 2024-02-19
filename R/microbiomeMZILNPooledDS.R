@@ -16,15 +16,11 @@
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
 #' @return {microbiomeMZILNPooledDS} returns a list consisting of intermediary results, mostly matrix crossproducts, from which estimates will be calculated on the client-side, and some additional information.
 #' @author Florian Schwarz for the German Institute of Human Nutrition
-#' @import doRNG
 #' @import dplyr
 #' @import tidyr
-#' @import MatrixExtra
-#' @import Matrix
-#' @import DescTools
-#' @import methods
-#' @import parallelly
+#' @import SummarizedExperiment
 #' @importFrom dplyr %>%
+#' @import dsBase
 #' @export
 #'
 

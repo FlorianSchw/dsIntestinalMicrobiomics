@@ -1,3 +1,19 @@
+#'
+#' @title Needs editing
+#' @description Needs editing
+#' @details Needs editing
+#' @param data is a string character of the SummarizedExperiment object
+#' @param microbVar_ds This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
+#' @param refTaxa_ds is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
+#' @param allCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
+#' @param sampleIDname is a string character for the sample ID variable.
+#' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
+#' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
+#' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
+#' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
+#' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
+#' @param verbose Whether the process message is printed out to the console. Default is TRUE.
+
 #' @details internal function for the microbiomeMZILNPooled function.
 
 
@@ -5,25 +21,25 @@
 
 
 int.Regulariz_MZILN <- function(data,
-                            nRef,
-                            sub_taxa,
-                            testCovInd,
-                            testCovInOrder,
-                            testCovInNewNam,
-                            microbName,
-                            refTaxa,
-                            adjust_method,
-                            paraJobs,
-                            binaryInd,
-                            binaryInd_test,
-                            covsPrefix,
-                            Mprefix,
-                            fdrRate,
-                            sequentialRun,
-                            allFunc = allFunc,
-                            phase1_taxon_num = 200,
-                            trans_x_col = 200,
-                            spar_cutoff = 10) {
+                                nRef,
+                                sub_taxa,
+                                testCovInd,
+                                testCovInOrder,
+                                testCovInNewNam,
+                                microbName,
+                                refTaxa,
+                                adjust_method,
+                                paraJobs,
+                                binaryInd,
+                                binaryInd_test,
+                                covsPrefix,
+                                Mprefix,
+                                fdrRate,
+                                sequentialRun,
+                                allFunc = allFunc,
+                                phase1_taxon_num = 200,
+                                trans_x_col = 200,
+                                spar_cutoff = 10) {
   results <- list()
   regul.start.time <- proc.time()[3]
 
