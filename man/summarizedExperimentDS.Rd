@@ -10,8 +10,6 @@ summarizedExperimentDS(microbiomeData, covariateData)
 \item{microbiomeData}{is a string character of microbiome variables of interest (can be a vector of names)}
 
 \item{covariateData}{is a string character of covariate variables of interest (can be a vector of names)}
-
-\item{df}{is a string character of the data.frame}
 }
 \value{
 the object specified by the \code{newobj} argument of \code{ds.summarizedExperiment} or default name \code{sumExp.newobj}

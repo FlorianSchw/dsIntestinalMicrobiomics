@@ -1,7 +1,12 @@
+#'
+#' @title Computes the association of microbiome data with covariates
+#' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
 #' @import doRNG
 #' @import foreach
-
+#' @importFrom parallelly availableCores
+#' @importFrom parallel clusterExport
+#' @importFrom doParallel registerDoParallel
 
 int.bootResuHDCI <- function(data,
                              refTaxa,

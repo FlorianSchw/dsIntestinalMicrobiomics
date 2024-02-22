@@ -27,8 +27,10 @@ AggregateMethods:
   microbiomeIFAAPooledDS
 AssignMethods:
   summarizedExperimentDS
-RoxygenNote: 7.2.3
+Remotes: datashield/dsBase
+RoxygenNote: 7.3.1
 Encoding: UTF-8
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    remotes
 Config/testthat/edition: 3

@@ -13,7 +13,6 @@
 #' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
 #' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
 #' @param verbose Whether the process message is printed out to the console. Default is TRUE.
-
 #' @details internal function for the microbiomeMZILNPooled function.
 
 
