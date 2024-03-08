@@ -16,6 +16,25 @@ int.dataInfo(
   balanceCut
 )
 }
+\arguments{
+\item{data}{Needs update}
+
+\item{Mprefix}{Needs update}
+
+\item{covsPrefix}{Needs update}
+
+\item{qualifyRefTax}{Needs update}
+
+\item{binPredInd}{Needs update}
+
+\item{refReadsThresh}{Needs update}
+
+\item{SDThresh}{Needs update}
+
+\item{SDquantilThresh}{Needs update}
+
+\item{balanceCut}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

@@ -6,6 +6,11 @@
 \usage{
 int.dataSparsCheck(data, Mprefix)
 }
+\arguments{
+\item{data}{Needs update}
+
+\item{Mprefix}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

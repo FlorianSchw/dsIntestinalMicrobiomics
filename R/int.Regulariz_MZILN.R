@@ -2,18 +2,28 @@
 #' @title Needs editing
 #' @description Needs editing
 #' @details Needs editing
-#' @param data is a string character of the SummarizedExperiment object
-#' @param microbVar_ds This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.
-#' @param refTaxa_ds is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)
-#' @param allCov_ds is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).
-#' @param sampleIDname is a string character for the sample ID variable.
-#' @param adjust_method The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.
-#' @param fdrRate The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.
-#' @param paraJobs If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.
-#' @param taxDropThresh The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.
-#' @param standardize is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.
-#' @param verbose Whether the process message is printed out to the console. Default is TRUE.
-#' @details internal function for the microbiomeMZILNPooled function.
+#' @param data Needs update
+#' @param nRef Needs update
+#' @param sub_taxa Needs update
+#' @param testCovInd Needs update
+#' @param testCovInOrder Needs update
+#' @param testCovInNewNam Needs update
+#' @param microbName Needs update
+#' @param refTaxa Needs update
+#' @param adjust_method Needs update
+#' @param paraJobs Needs update
+#' @param binaryInd Needs update
+#' @param binaryInd_test Needs update
+#' @param covsPrefix Needs update
+#' @param Mprefix Needs update
+#' @param fdrRate Needs update
+#' @param sequentialRun Needs update
+#' @param allFunc Needs update
+#' @param phase1_taxon_num Needs update
+#' @param trans_x_col Needs update
+#' @param spar_cutoff Needs update
+#' @importFrom stats median
+#'
 
 
 
@@ -113,7 +123,7 @@ int.Regulariz_MZILN <- function(data,
     sum(x == 0) / length(x)
   })
 
-  meadianRowSpars <- min(median(rowSpars), 0.999)
+  meadianRowSpars <- min(stats::median(rowSpars), 0.999)
 
   num_taxa_each <-
     max(ceiling(spar_cutoff / (1 - meadianRowSpars)),

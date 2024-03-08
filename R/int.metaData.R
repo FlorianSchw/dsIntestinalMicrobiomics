@@ -2,7 +2,20 @@
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
-
+#' @param MicrobData Needs update
+#' @param CovData Needs update
+#' @param linkIDname Needs update
+#' @param sampleIDname Needs update
+#' @param testCov Needs update
+#' @param ctrlCov Needs update
+#' @param testMany Needs update
+#' @param ctrlMany Needs update
+#' @param MZILN Needs update
+#' @param taxDropThresh Needs update
+#' @param standardize Needs update
+#' @importFrom stats sd
+#' @importFrom stats na.omit
+#'
 
 
 
@@ -139,7 +152,7 @@ int.metaData <- function(MicrobData,
   # merge data to remove missing
   CovarWithId1 <- CovarWithId[, c(linkIDname, testCov, ctrlCov)]
 
-  allRawData <- data.matrix(na.omit(
+  allRawData <- data.matrix(stats::na.omit(
     merge(
       CovarWithId1,
       MdataWithId,
@@ -282,19 +295,19 @@ int.metaData <- function(MicrobData,
     if (length(binaryInd) > 0) {
       Covariates[, -binaryInd] <- Covariates[, -binaryInd] %*%
         diag(1 / apply(Covariates[, -binaryInd], 2, function(x) {
-          sd(x, na.rm = TRUE)
+          stats::sd(x, na.rm = TRUE)
         }))
     } else {
       Covariates <- Covariates %*%
         diag(1 / apply(Covariates, 2, function(x) {
-          sd(x, na.rm = TRUE)
+          stats::sd(x, na.rm = TRUE)
         }))
     }
   }
 
   #### Test for constant column
   sd_col <- apply(Covariates, 2, function(x) {
-    sd(x, na.rm = TRUE)
+    stats::sd(x, na.rm = TRUE)
   })
   sd_zero_loc <- which(sd_col == 0)
   if (length(sd_zero_loc) > 0) {
@@ -326,7 +339,7 @@ int.metaData <- function(MicrobData,
     all.x = FALSE,
     all.y = FALSE
   )
-  dataOmit <- na.omit(data)
+  dataOmit <- stats::na.omit(data)
 
   results$covariatesData <- CovarWithId_new
   colnames(results$covariatesData) <- c(linkIDname, results$xNames)

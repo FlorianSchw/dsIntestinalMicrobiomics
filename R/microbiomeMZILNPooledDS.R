@@ -201,7 +201,7 @@ microbiomeMZILNPooledDS <- function(SumExp,
     )
   } else {
     results$analysisResults <- suppressMessages(
-      Regulariz_MZILN(
+      int.Regulariz_MZILN(
         data = data,
         nRef = nRef,
         sub_taxa = microbVar,

@@ -6,6 +6,15 @@
 \usage{
 int.lm_sparse(x, y, intercept = FALSE, tol = 1e-07)
 }
+\arguments{
+\item{x}{Needs update}
+
+\item{y}{Needs update}
+
+\item{intercept}{Needs update}
+
+\item{tol}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

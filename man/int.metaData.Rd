@@ -18,6 +18,29 @@ int.metaData(
   standardize
 )
 }
+\arguments{
+\item{MicrobData}{Needs update}
+
+\item{CovData}{Needs update}
+
+\item{linkIDname}{Needs update}
+
+\item{sampleIDname}{Needs update}
+
+\item{testCov}{Needs update}
+
+\item{ctrlCov}{Needs update}
+
+\item{testMany}{Needs update}
+
+\item{ctrlMany}{Needs update}
+
+\item{MZILN}{Needs update}
+
+\item{taxDropThresh}{Needs update}
+
+\item{standardize}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

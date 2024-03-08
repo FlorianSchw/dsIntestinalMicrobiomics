@@ -2,7 +2,18 @@
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
-
+#' @param data Needs update
+#' @param Mprefix Needs update
+#' @param covsPrefix Needs update
+#' @param qualifyRefTax Needs update
+#' @param binPredInd Needs update
+#' @param refReadsThresh Needs update
+#' @param SDThresh Needs update
+#' @param SDquantilThresh Needs update
+#' @param balanceCut Needs update
+#' @importFrom stats sd
+#' @importFrom stats quantile
+#'
 
 
 
@@ -46,7 +57,7 @@ int.dataInfo <- function(data,
     for (i in seq_len(length(taxaOverThresh))) {
       taxa.i <- w[, taxaOverThresh[i]]
       if (sum(taxa.i > 0) > 1) {
-        sdTaxaOverThresh[i] <- sd(taxa.i[(taxa.i > 0)])
+        sdTaxaOverThresh[i] <- stats::sd(taxa.i[(taxa.i > 0)])
       }
     }
 
@@ -63,10 +74,10 @@ int.dataInfo <- function(data,
       taxaAll.i <- w[, taxaNames[i]]
       posTaxaAll.i <- taxaAll.i[(taxaAll.i > 0)]
       if (length(posTaxaAll.i) > 1) {
-        sdAllTaxa[i] <- sd(posTaxaAll.i)
+        sdAllTaxa[i] <- stats::sd(posTaxaAll.i)
       }
     }
-    goodRefTaxaCandi <- TaxaOverSdThresh[(sdOverSdThresh >= quantile(sdAllTaxa,
+    goodRefTaxaCandi <- TaxaOverSdThresh[(sdOverSdThresh >= stats::quantile(sdAllTaxa,
                                                                      probs =
                                                                        SDquantilThresh
     ))]

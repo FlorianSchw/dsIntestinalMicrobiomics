@@ -1,8 +1,15 @@
 #'
 #' @title Computes the association of microbiome data with covariates
+#' @param data Needs updating
+#' @param ref Needs updating
+#' @param Mprefix Needs updating
+#' @param covsPrefix Needs updating
+#' @param binPredInd Needs updating
+#' @param contCovStd Needs updating
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
 #' @importFrom MatrixExtra as.csc.matrix
+#'
 
 
 

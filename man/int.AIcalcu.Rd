@@ -6,6 +6,19 @@
 \usage{
 int.AIcalcu(data, ref, Mprefix, covsPrefix, binPredInd, contCovStd = FALSE)
 }
+\arguments{
+\item{data}{Needs updating}
+
+\item{ref}{Needs updating}
+
+\item{Mprefix}{Needs updating}
+
+\item{covsPrefix}{Needs updating}
+
+\item{binPredInd}{Needs updating}
+
+\item{contCovStd}{Needs updating}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

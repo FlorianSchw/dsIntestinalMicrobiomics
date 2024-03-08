@@ -2,6 +2,28 @@
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for the microbiomeIFAAPooledDS function.
+#' @param data Needs update
+#' @param testCovInd Needs update
+#' @param testCovInOrder Needs update
+#' @param testCovInNewNam Needs update
+#' @param microbName Needs update
+#' @param sub_taxa Needs update
+#' @param refTaxa Needs update
+#' @param refTaxa_newNam Needs update
+#' @param paraJobs Needs update
+#' @param binaryInd Needs update
+#' @param binaryInd_test Needs update
+#' @param covsPrefix Needs update
+#' @param Mprefix Needs update
+#' @param fwerRate Needs update
+#' @param allFunc Needs update
+#' @param adjust_method Needs update
+#' @param sequentialRun Needs update
+#' @param phase1_taxon_num Needs update
+#' @param trans_x_col Needs update
+#' @param spar_cutoff Needs update
+#' @importFrom stats median
+#'
 
 
 
@@ -95,7 +117,7 @@ int.Regulariz_IFAA <- function(data,
     sum(x == 0) / length(x)
   })
 
-  meadianRowSpars <- min(median(rowSpars), 0.999)
+  meadianRowSpars <- min(stats::median(rowSpars), 0.999)
 
   num_taxa_each <- max(ceiling(spar_cutoff / (1 - meadianRowSpars)), num_taxa_each)
   num_taxa_each <- min(num_taxa_each, nTaxa)

@@ -15,6 +15,23 @@ int.dataRecovTrans(
   yOnly = FALSE
 )
 }
+\arguments{
+\item{data}{Needs update}
+
+\item{ref}{Needs update}
+
+\item{Mprefix}{Needs update}
+
+\item{covsPrefix}{Needs update}
+
+\item{binPredInd}{Needs update}
+
+\item{contCovStd}{Needs update}
+
+\item{xOnly}{Needs update}
+
+\item{yOnly}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

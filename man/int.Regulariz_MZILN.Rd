@@ -28,33 +28,49 @@ int.Regulariz_MZILN(
 )
 }
 \arguments{
-\item{data}{is a string character of the SummarizedExperiment object}
+\item{data}{Needs update}
 
-\item{adjust_method}{The adjusting method for p value adjustment. Default is "BY" for dependent FDR adjustment. It can take any adjustment method for the p.adjust function in R.}
+\item{nRef}{Needs update}
 
-\item{paraJobs}{If 'sequentialRun' is FALSE, this specifies the number of parallel jobs that will be registered to run the algoithm. If specified as NULL, it will automatically detect the cores to decide the number of parallel jobs.}
+\item{sub_taxa}{Needs update}
 
-\item{fdrRate}{The false discovery rate for identifying taxa/OTU/ASV associated with 'covariates'.}
+\item{testCovInd}{Needs update}
 
-\item{microbVar_ds}{This takes a single or vector of microbiome variable names (e.g., taxa, OTU and ASV names) of interest. Default is "all" meaning all microbiome variables will be analyzed. If a subset of microbiome variables is specified, the output will only contain the specified variables, and p-value adjustment for multiple testing will only be applied to the subset.}
+\item{testCovInOrder}{Needs update}
 
-\item{refTaxa_ds}{is a string character for the microbiome variable denominator (can also be a vector of microbiome variables)}
+\item{testCovInNewNam}{Needs update}
 
-\item{allCov_ds}{is a string character of covariates to be examined along the microbiome variables (can also be a vector of covariates).}
+\item{microbName}{Needs update}
 
-\item{sampleIDname}{is a string character for the sample ID variable.}
+\item{refTaxa}{Needs update}
 
-\item{taxDropThresh}{The threshold of number of non-zero sequencing reads for each taxon to be dropped from the analysis. Default is 0 which means that taxon without any sequencing reads will be dropped from the analysis.}
+\item{adjust_method}{Needs update}
 
-\item{standardize}{is a logical. If TRUE, the design matrix for X will be standardized in the analyses and the results. Default is FALSE.}
+\item{paraJobs}{Needs update}
 
-\item{verbose}{Whether the process message is printed out to the console. Default is TRUE.}
+\item{binaryInd}{Needs update}
+
+\item{binaryInd_test}{Needs update}
+
+\item{covsPrefix}{Needs update}
+
+\item{Mprefix}{Needs update}
+
+\item{fdrRate}{Needs update}
+
+\item{sequentialRun}{Needs update}
+
+\item{allFunc}{Needs update}
+
+\item{phase1_taxon_num}{Needs update}
+
+\item{trans_x_col}{Needs update}
+
+\item{spar_cutoff}{Needs update}
 }
 \description{
 Needs editing
 }
 \details{
 Needs editing
-
-internal function for the microbiomeMZILNPooled function.
 }

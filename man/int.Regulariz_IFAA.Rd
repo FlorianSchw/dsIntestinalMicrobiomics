@@ -27,6 +27,47 @@ int.Regulariz_IFAA(
   spar_cutoff = 10
 )
 }
+\arguments{
+\item{data}{Needs update}
+
+\item{testCovInd}{Needs update}
+
+\item{testCovInOrder}{Needs update}
+
+\item{testCovInNewNam}{Needs update}
+
+\item{microbName}{Needs update}
+
+\item{sub_taxa}{Needs update}
+
+\item{refTaxa}{Needs update}
+
+\item{refTaxa_newNam}{Needs update}
+
+\item{paraJobs}{Needs update}
+
+\item{binaryInd}{Needs update}
+
+\item{binaryInd_test}{Needs update}
+
+\item{covsPrefix}{Needs update}
+
+\item{Mprefix}{Needs update}
+
+\item{fwerRate}{Needs update}
+
+\item{allFunc}{Needs update}
+
+\item{adjust_method}{Needs update}
+
+\item{sequentialRun}{Needs update}
+
+\item{phase1_taxon_num}{Needs update}
+
+\item{trans_x_col}{Needs update}
+
+\item{spar_cutoff}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

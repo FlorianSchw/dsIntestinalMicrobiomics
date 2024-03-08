@@ -2,11 +2,32 @@
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
+#' @param data Needs update
+#' @param refTaxa Needs update
+#' @param originRefTaxNam Needs update
+#' @param maxDimension Needs update
+#' @param bootLassoAlpha Needs update
+#' @param binPredInd Needs update
+#' @param covsPrefix Needs update
+#' @param Mprefix Needs update
+#' @param allFunc Needs update
+#' @param unbalanceTaxa_ori_name Needs update
+#' @param unbalancePred_ori_name Needs update
+#' @param testCovInOrder Needs update
+#' @param adjust_method Needs update
+#' @param sequentialRun Needs update
+#' @param microbName Needs update
+#' @param fwerRate Needs update
+#' @param paraJobs Needs update
+#' @param taxa_sepname_list_arg Needs update
+#' @param subsamp_cut Needs update
 #' @import doRNG
-#' @import foreach
+#' @importFrom foreach foreach
+#' @importFrom foreach registerDoSEQ
 #' @importFrom parallelly availableCores
 #' @importFrom parallel clusterExport
 #' @importFrom doParallel registerDoParallel
+#'
 
 int.bootResuHDCI <- function(data,
                              refTaxa,
@@ -89,7 +110,7 @@ int.bootResuHDCI <- function(data,
 
   i <- numeric(0)
 
-  phase2res <- foreach(
+  phase2res <- foreach::foreach(
     i = seq_len(length(taxa_sepname_list)),
     .multicombine = TRUE,
     .errorhandling = "pass"

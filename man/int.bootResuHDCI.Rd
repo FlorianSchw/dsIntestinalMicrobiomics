@@ -26,6 +26,45 @@ int.bootResuHDCI(
   subsamp_cut = 3
 )
 }
+\arguments{
+\item{data}{Needs update}
+
+\item{refTaxa}{Needs update}
+
+\item{originRefTaxNam}{Needs update}
+
+\item{maxDimension}{Needs update}
+
+\item{bootLassoAlpha}{Needs update}
+
+\item{binPredInd}{Needs update}
+
+\item{covsPrefix}{Needs update}
+
+\item{Mprefix}{Needs update}
+
+\item{allFunc}{Needs update}
+
+\item{unbalanceTaxa_ori_name}{Needs update}
+
+\item{unbalancePred_ori_name}{Needs update}
+
+\item{testCovInOrder}{Needs update}
+
+\item{adjust_method}{Needs update}
+
+\item{sequentialRun}{Needs update}
+
+\item{microbName}{Needs update}
+
+\item{fwerRate}{Needs update}
+
+\item{paraJobs}{Needs update}
+
+\item{taxa_sepname_list_arg}{Needs update}
+
+\item{subsamp_cut}{Needs update}
+}
 \description{
 This function calls a custom version of the native R function IFAA from the IFAA package.
 }

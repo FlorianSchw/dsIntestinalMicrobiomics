@@ -2,11 +2,16 @@
 #' @title Computes the association of microbiome data with covariates
 #' @description This function calls a custom version of the native R function IFAA from the IFAA package.
 #' @details internal function for microbiomeIFAAPooledDS and microbiomeMZILNPooled functions.
+#' @param x Needs update
+#' @param y Needs update
+#' @param intercept Needs update
+#' @param tol Needs update
 #' @importFrom MatrixExtra as.csc.matrix
 #' @importFrom MatrixExtra cbind2
 #' @importFrom Matrix qrR
 #' @importFrom Matrix qr
 #' @importFrom MatrixExtra crossprod
+#'
 
 int.lm_sparse <- function(x, y,intercept=FALSE, tol = 1e-07){
 
