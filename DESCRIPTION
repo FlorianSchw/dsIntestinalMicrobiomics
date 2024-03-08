@@ -18,7 +18,7 @@ Imports:
   Matrix,
   MatrixExtra,
   methods,
-  DescTools,
+  DescTools(<= 0.99.50),
   SummarizedExperiment,
   parallelly
 biocViews: 
@@ -27,7 +27,7 @@ AggregateMethods:
   microbiomeIFAAPooledDS
 AssignMethods:
   summarizedExperimentDS
-Remotes: datashield/dsBase
+Remotes: datashield/dsBase, cran/DescTools@0.99.50
 RoxygenNote: 7.3.1
 Encoding: UTF-8
 Suggests: 
